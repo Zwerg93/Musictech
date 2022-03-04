@@ -3,10 +3,13 @@ package at.ac.htl.leonding.api;
 import at.ac.htl.leonding.workloads.song.Song;
 import at.ac.htl.leonding.workloads.song.SongRepo;
 import org.apache.commons.io.IOUtils;
+import org.apache.kafka.clients.Metadata;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
+import org.xml.sax.helpers.DefaultHandler;
 
 import javax.inject.Inject;
+import javax.swing.text.html.parser.Parser;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MultivaluedMap;
@@ -15,6 +18,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.ContentHandler;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +29,7 @@ public class UploadResource {
     @Inject
     SongRepo repo;
 
-    private final String UPLOADED_FILE_PATH = "/home/marcel/Desktop/musictech/files/";
+    private final String UPLOADED_FILE_PATH = "C:\\Schule\\4BHITM\\sew\\musictech\\files\\";
     private String postURL = "";
 
 
@@ -49,17 +53,19 @@ public class UploadResource {
                 MultivaluedMap<String, String> header = inputPart.getHeaders();
                 fileName = getFileName(header);
                 artist = getArtist(header);
+
                 System.out.println(artist);
                 InputStream inputStream = inputPart.getBody(InputStream.class, null);
                 System.out.println(fileName);
+                ;
                 postURL = "http://localhost:8080/uploadFile/download/" + fileName;
                 System.out.println(postURL);
 
-                Song song = new Song(fileName, artist, postURL);
+                Song song = new Song(fileName, postURL);
 
+                repo.addSong(song);
+                //repo.persist(song);
 
-                repo.persist(song);
-                
                 //songService.addSong(fileName,artist,postURL);
 
 

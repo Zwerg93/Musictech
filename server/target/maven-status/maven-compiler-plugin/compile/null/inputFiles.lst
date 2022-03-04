@@ -1,5 +1,12 @@
-/home/marcel/Desktop/musictech/server/src/main/java/at/ac/htl/leonding/api/UploadResource.java
-/home/marcel/Desktop/musictech/server/src/main/java/at/ac/htl/leonding/models/SongDOT.java
-/home/marcel/Desktop/musictech/server/src/main/java/at/ac/htl/leonding/workloads/song/SongRepo.java
-/home/marcel/Desktop/musictech/server/src/main/java/at/ac/htl/leonding/api/SongResource.java
-/home/marcel/Desktop/musictech/server/src/main/java/at/ac/htl/leonding/workloads/song/Song.java
+C:\Schule\4BHITM\sew\musictech\server\src\main\java\at\ac\htl\leonding\api\UserResource.java
+C:\Schule\4BHITM\sew\musictech\server\src\main\java\at\ac\htl\leonding\workloads\user\UserRepo.java
+C:\Schule\4BHITM\sew\musictech\server\src\main\java\at\ac\htl\leonding\api\SongResource.java
+C:\Schule\4BHITM\sew\musictech\server\src\main\java\at\ac\htl\leonding\api\UploadResource.java
+C:\Schule\4BHITM\sew\musictech\server\src\main\java\at\ac\htl\leonding\models\PlaylistDOT.java
+C:\Schule\4BHITM\sew\musictech\server\src\main\java\at\ac\htl\leonding\workloads\song\SongRepo.java
+C:\Schule\4BHITM\sew\musictech\server\src\main\java\at\ac\htl\leonding\workloads\user\User.java
+C:\Schule\4BHITM\sew\musictech\server\src\main\java\at\ac\htl\leonding\models\UserDOT.java
+C:\Schule\4BHITM\sew\musictech\server\src\main\java\at\ac\htl\leonding\workloads\playlist\PlaylistRepo.java
+C:\Schule\4BHITM\sew\musictech\server\src\main\java\at\ac\htl\leonding\models\SongDOT.java
+C:\Schule\4BHITM\sew\musictech\server\src\main\java\at\ac\htl\leonding\workloads\song\Song.java
+C:\Schule\4BHITM\sew\musictech\server\src\main\java\at\ac\htl\leonding\workloads\playlist\Playlist.java

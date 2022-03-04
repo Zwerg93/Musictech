@@ -3,7 +3,8 @@ package at.ac.htl.leonding.models;
 public class SongDOT {
     private String url;
     private String name;
-    private String artist;
+
+
 
     public String getUrl() {
         return url;
@@ -21,11 +22,10 @@ public class SongDOT {
         this.name = name;
     }
 
-    public String getArtist() {
-        return artist;
-    }
 
-    public void setArtist(String artist) {
-        this.artist = artist;
-    }
 }
+/*<dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-keycloak-authorization</artifactId>
+    </dependency>
+* */

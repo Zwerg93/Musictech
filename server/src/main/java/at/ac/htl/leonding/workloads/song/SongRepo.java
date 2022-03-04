@@ -7,10 +7,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+
 @ApplicationScoped
 public class SongRepo implements PanacheRepository<Song> {
 
-    EntityManager entityManager;
+    private final EntityManager entityManager;
+
+    public SongRepo(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     public List<Song> getAll() {
         TypedQuery<Song> query = this.entityManager
@@ -19,5 +24,7 @@ public class SongRepo implements PanacheRepository<Song> {
         return query.getResultList();
     }
 
+    public void addSong(Song song) {this.entityManager.persist(song);
+    }
 }
 
