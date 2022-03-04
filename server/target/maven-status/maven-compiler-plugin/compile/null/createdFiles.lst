@@ -1,1 +1,6 @@
-at/ac/htl/leonding/workloads/Playlist/PlaylistId.class
+at/ac/htl/leonding/models/SongDOT.class
+at/ac/htl/leonding/api/UploadResource.class
+at/ac/htl/leonding/workloads/song/Song.class
+META-INF/panache-archive.marker
+at/ac/htl/leonding/api/SongResource.class
+at/ac/htl/leonding/workloads/song/SongRepo.class
