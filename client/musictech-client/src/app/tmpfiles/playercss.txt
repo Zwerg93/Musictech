@@ -1,0 +1,117 @@
+// src/app/pages/player/player.component.scss
+.container {
+  .main-toolbar {
+    .spacer {
+      flex: 1 1 auto;
+    }
+
+    .toolbar-btn {
+      font-size: 1.2vw;
+      margin-right: 5px;
+      cursor: pointer;
+    }
+  }
+
+  .content {
+    .logo {
+      margin: 2.5rem;
+      text-align: center;
+      font-size: 2vw;
+      color: #3f51b5;
+
+      .mat-icon {
+        height: 2vw !important;
+        width: 2vw !important;
+        font-size: 2vw !important;
+      }
+    }
+  }
+
+  .media-footer {
+    position: absolute;
+    bottom: 0;
+
+    .time-slider {
+      width: 100% !important;
+      margin-left: 2vw;
+      margin-right: 2vw;
+    }
+
+    .media-action-bar {
+      width: 50vw;
+      padding: 2.5rem;
+      justify-content: center;
+
+      .mat-icon {
+        height: 48px !important;
+        width: 48px !important;
+        font-size: 2vw !important;
+      }
+    }
+  }
+}
+
+
+body {
+  background: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+}
+
+main {
+  display: block;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 50vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.content-header {
+  background: -webkit-gradient(linear, left top, right top, from(#fa8c01), to(#da3472));
+  background: linear-gradient(to right, #fa8c01, #da3472);
+  border: 0.2vh solid black;
+  border-top-right-radius: 2vh;
+  border-top-left-radius: 2vh;
+  height: 5vw;
+  width: 49.84vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.content-header h1 {
+  margin-top: 3vh;
+  font-size: 3vh;
+}
+
+.content-body {
+  background-color: #fff;
+  border: 0.2vh solid black;
+  margin-top: -1.3vh;
+  background-color: #ffffff;
+  border-top-right-radius: 2vh;
+  border-top-left-radius: 2vh;
+  border-bottom-right-radius: 2vh;
+  border-bottom-left-radius: 2vh;
+}
+
+.content-body p {
+  color: #000;
+  margin: 2vh;
+  font-size: 2vh;
+  height: 20vh;
+}
+
+.block {
+  padding-top: 5vw;
+}
+
+/*# sourceMappingURL=hello-world.component.css.map */

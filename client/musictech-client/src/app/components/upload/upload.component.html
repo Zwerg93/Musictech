@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<input type="file" (change)="onFIleSelected($event)">
+
+<button type="button" (click)="onUpload()">Upload</button>
+<!--
+<iframe src="https://api.vevioz.com/@api/button/mp3/192/RJnMWK9mrgQ" style="width:100%;height:150px;border:none;" scrolling="no"></iframe>
+-->
+
+<section>
+  <div class="container">
+    <div>
+      <h1 class="h2 mt-5 text-dark">Or Paste YT link</h1>
+    </div>
+
+    <div class="input-group">
+      <span class="input-group-text">Link</span>
+      <textarea class="form-control" id="link" aria-label="With textarea"></textarea>
+    </div>
+    <input (click)="download()" class="btn mt-4 btn-primary" type="button" value="Donwload">
+  </div>
+</section>
+<div id="iframe">
+
+</div>
+
+<div id="showresult">
+
+</div>
+</body>
+</html>

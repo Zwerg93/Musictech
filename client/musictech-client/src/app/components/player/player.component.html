@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Player</title>
+</head>
+<body>
+<main>
+  <!-- src/app/pages/player/player.component.html -->
+  <div class="container">
+
+    <div class="content text-black">
+
+      <mat-list color="primary">
+        <h3 mat-subheader>Songs</h3>
+        <mat-list-item *ngFor="let file of files; let i = index" (click)="openFile(file, i)">
+          <mat-icon color="primary" mat-list-icon>music_note</mat-icon>
+          <h4 mat-line class="text-dark overflow-auto ">{{ file.name }}</h4>
+          <h5 mat-line class="text-dark">by {{ file.artist }}</h5>
+          <mat-icon color="primary" *ngIf="currentFile.index === i && !state?.error">volume_up</mat-icon>
+          <h6 *ngIf="currentFile.index === i && state?.error">ERROR</h6>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </mat-list>
+    </div>
+
+
+  </div>
+
+  <div class="">
+    <div class="media-footer position-fixed bottom-0 w-100 ">
+      <div class="bg-dark text-center ">
+
+        <div class="row text-light">
+          <div class="col text-light mt-2"> {{ state?.readableCurrentTime }}</div>
+          <mat-slider class="w-100 col time-slider text-light" min="0" [max]="state?.duration" step="1" [value]="state?.currentTime"
+                      (input)="onSliderChangeEnd($event)"></mat-slider>
+
+          <div class="col text-light mt-2 mx5">{{ state?.readableDuration }}</div>
+        </div>
+
+        <div class="media-action-bar bg-dark pb-5 text-center">
+          <button mat-button (click)="test = true; autoplayfunc(test)">
+            <i class= "text-primary bi bi-heart-fill"></i>
+          </button>
+          <button mat-button [disabled]="isFirstPlaying()" (click)="previous()">
+            <mat-icon  class="text-primary"mat-list-icon>skip_previous</mat-icon>
+          </button>
+
+
+          <button mat-button (click)="play()" [disabled]="state?.error" *ngIf="!state?.playing">
+            <mat-icon class="text-primary" mat-list-icon>play_circle_filled</mat-icon>
+          </button>
+          <button mat-button (click)="pause()" *ngIf="state?.playing">
+            <mat-icon class="text-primary" mat-list-icon>pause</mat-icon>
+          </button>
+          <button mat-button [disabled]="isLastPlaying()" (click)="next()">
+            <mat-icon class="text-primary" mat-list-icon>skip_next</mat-icon>
+          </button>
+          <button mat-button (click)="random()">
+            <i  class="bi bi-shuffle text-primary"></i>
+          </button>
+
+          <input type="range" id="volume-control">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var volume = document.querySelector("#volume-control");
+    volume.addEventListener("change", function(e) {
+    this.currentFile.volume = e.currentTarget.value / 100;
+    });
+
+  </script>
+
+
+</main>
+</body>
+</html>
