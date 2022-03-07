@@ -7,11 +7,11 @@ import javax.persistence.Entity;
 @Entity
 public class Song extends PanacheEntity {
 
-    public String name, artist, url;
+    public String name, url;
 
-    public Song(String name, String artist, String url) {
+
+    public Song(String name, String url) {
         this.name = name;
-        this.artist = artist;
         this.url = url;
     }
 

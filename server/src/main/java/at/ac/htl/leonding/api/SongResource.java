@@ -20,10 +20,8 @@ public class SongResource {
 
 
     @GET
-    //@Produces("application/")
     @Path("all")
     public Response getAllSongs() {
-
         var allSongs = repo.getAll();
         return Response.ok(allSongs).build();
     }
@@ -31,7 +29,7 @@ public class SongResource {
     @POST
     @Transactional
     public Response addSong(SongDOT newSong) {
-        Song song = new Song(newSong.getName(), newSong.getArtist(), newSong.getUrl());
+        Song song = new Song(newSong.getName(), newSong.getUrl());
         repo.persist(song);
 
         return Response.ok(song).build();
