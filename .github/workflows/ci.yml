@@ -38,5 +38,5 @@ jobs:
         run: |
           mvn clean package
           ls -a ./target
-        working-directory: quarkus/musictech
+        working-directory: server/
           
