@@ -38,7 +38,7 @@ public class UserResource {
     public Response addPlaylist(@PathParam("id") Long id,
                                 Playlist newPlaylist) {
         User user = this.repouser.findById(id);
-        Playlist playlist this.playlistRepo.g
+       // Playlist playlist this.playlistRepo.g
 
         User user = new User(newUser.getUsername(), newUser.getName(), newUser.getLastname(), newUser.getEmail(), newUser.getPassword());
         repo.persist(user);
