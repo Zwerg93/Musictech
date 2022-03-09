@@ -31,7 +31,7 @@ public class UserResource {
 
         return Response.ok(user).build();
     }
-
+/*
     @POST
     @Transactional
     @Path("addplaylis/{id}")
@@ -46,7 +46,7 @@ public class UserResource {
         return Response.ok(user).build();
     }
 
-
+*/
 
 
 

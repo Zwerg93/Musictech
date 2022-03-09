@@ -1,0 +1,13 @@
+-------------------------------------------------------------------------------
+Test set: at.ac.htl.leonding.GreetingResourceTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 10.498 s <<< FAILURE! - in at.ac.htl.leonding.GreetingResourceTest
+at.ac.htl.leonding.GreetingResourceTest.testHelloEndpoint  Time elapsed: 0.01 s  <<< ERROR!
+java.lang.RuntimeException: java.lang.RuntimeException: Failed to start quarkus
+Caused by: java.lang.RuntimeException: Failed to start quarkus
+Caused by: java.lang.RuntimeException: javax.persistence.PersistenceException: [PersistenceUnit: <default>] Unable to build Hibernate SessionFactory
+Caused by: javax.persistence.PersistenceException: [PersistenceUnit: <default>] Unable to build Hibernate SessionFactory
+Caused by: org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution
+Caused by: org.postgresql.util.PSQLException: Connection to 192.168.178.20:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+Caused by: java.net.ConnectException: Connection refused
+
