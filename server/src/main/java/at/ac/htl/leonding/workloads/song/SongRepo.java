@@ -1,5 +1,7 @@
 package at.ac.htl.leonding.workloads.song;
 
+import at.ac.htl.leonding.workloads.playlist.Playlist;
+import at.ac.htl.leonding.workloads.playlist.PlaylistRepo;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -24,7 +26,22 @@ public class SongRepo implements PanacheRepository<Song> {
         return query.getResultList();
     }
 
-    public void addSong(Song song) {this.entityManager.persist(song);
+
+
+    /*
+
+        public List<Song> getbyId(Long id) {
+            TypedQuery<Song> query = this.entityManager
+                    .createQuery("select p from Song p where p.id = :(id)",
+                            Song.class)
+                    .setParameter("id" = id);
+            return query.getResultList();
+        }
+
+
+     */
+    public void addSong(Song song) {
+        this.entityManager.persist(song);
     }
 }
 

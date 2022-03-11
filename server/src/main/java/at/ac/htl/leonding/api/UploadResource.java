@@ -3,13 +3,10 @@ package at.ac.htl.leonding.api;
 import at.ac.htl.leonding.workloads.song.Song;
 import at.ac.htl.leonding.workloads.song.SongRepo;
 import org.apache.commons.io.IOUtils;
-import org.apache.kafka.clients.Metadata;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
-import org.xml.sax.helpers.DefaultHandler;
 
 import javax.inject.Inject;
-import javax.swing.text.html.parser.Parser;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MultivaluedMap;
@@ -18,7 +15,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.ContentHandler;
 import java.util.List;
 import java.util.Map;
 

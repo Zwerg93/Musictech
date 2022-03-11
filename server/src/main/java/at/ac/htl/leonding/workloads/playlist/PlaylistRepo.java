@@ -9,10 +9,9 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @ApplicationScoped
-public class PlaylistRepo  implements PanacheRepository<Playlist> {
+public class PlaylistRepo implements PanacheRepository<Playlist> {
+
     private final EntityManager entityManager;
-
-
 
     public PlaylistRepo(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -25,6 +24,7 @@ public class PlaylistRepo  implements PanacheRepository<Playlist> {
         return query.getResultList();
     }
 
-    public void addSong(Song song) {this.entityManager.persist(song);
+    public void addSong(Song song) {
+        this.entityManager.persist(song);
     }
 }

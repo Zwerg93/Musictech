@@ -1,10 +1,8 @@
 package at.ac.htl.leonding.api;
 
-import at.ac.htl.leonding.models.SongDOT;
 import at.ac.htl.leonding.models.UserDOT;
 import at.ac.htl.leonding.workloads.playlist.Playlist;
 import at.ac.htl.leonding.workloads.playlist.PlaylistRepo;
-import at.ac.htl.leonding.workloads.song.Song;
 import at.ac.htl.leonding.workloads.song.SongRepo;
 import at.ac.htl.leonding.workloads.user.User;
 import at.ac.htl.leonding.workloads.user.UserRepo;
@@ -21,11 +19,14 @@ public class UserResource {
 
     @Inject
     UserRepo repouser;
+    @Inject
     PlaylistRepo playlistRepo;
+    @Inject
+    SongRepo songRepo;
 
     @POST
     @Transactional
-    public Response addSong(UserDOT newUser) {
+    public Response addUser(UserDOT newUser) {
         User user = new User(newUser.getUsername(), newUser.getName(), newUser.getLastname(), newUser.getEmail(), newUser.getPassword());
         repouser.persist(user);
 
@@ -34,32 +35,39 @@ public class UserResource {
 
     @POST
     @Transactional
-    @Path("addplaylis/{id}")
-    public Response addPlaylist(@PathParam("id") Long id,
-                                Playlist newPlaylist) {
+    @Path("add/{id}")
+    public Response addPlaylist(@PathParam("id") Long id, String name) {
+
         User user = this.repouser.findById(id);
-        Playlist playlist this.playlistRepo.g
 
-        User user = new User(newUser.getUsername(), newUser.getName(), newUser.getLastname(), newUser.getEmail(), newUser.getPassword());
-        repo.persist(user);
+        Playlist playlist = new Playlist(name);
 
-        return Response.ok(user).build();
+        this.playlistRepo.persist(playlist);
+        System.out.println(user.toString());
+
+
+        this.repouser.addPlaylist(user,playlist);
+
+
+
+
+        System.out.println(user.playlistList.size() + " test");
+
+
+        return Response.ok().build();
     }
-
-
-
 
 
     @GET
     @Path("all")
-    public Response getAllSongs() {
-        var allUser = repouser.getAll();
+    public Response getallUser() {
+        var allUser = repouser.listAll();
         return Response.ok(allUser).build();
     }
 
     @GET
     @Path("{id}")
-    public Response get(@PathParam("id") Long id) {
+    public Response getUserById(@PathParam("id") Long id) {
         User user = repouser.findById(id);
         return (user == null
                 ? Response.status(404)
@@ -76,10 +84,11 @@ public class UserResource {
 
         if (repouser.getPassword(username).equals(password)) {
             return Response.ok().build();
-        }else {
+        } else {
             return Response.serverError().build();
         }
 
 
     }
+
 }
