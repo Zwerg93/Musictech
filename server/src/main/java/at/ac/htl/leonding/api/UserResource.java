@@ -1,11 +1,10 @@
 package at.ac.htl.leonding.api;
 
+import at.ac.htl.leonding.models.PlaylistDOT;
 import at.ac.htl.leonding.models.UserDOT;
-import at.ac.htl.leonding.workloads.playlist.Playlist;
-import at.ac.htl.leonding.workloads.playlist.PlaylistRepo;
-import at.ac.htl.leonding.workloads.song.SongRepo;
 import at.ac.htl.leonding.workloads.user.User;
-import at.ac.htl.leonding.workloads.user.UserRepo;
+import at.ac.htl.leonding.workloads.user.UserRepoImpl;
+import at.ac.htl.leonding.workloads.user.UserService;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -17,43 +16,39 @@ import javax.ws.rs.core.Response;
 @Consumes("application/json")
 public class UserResource {
 
+    private final UserService userService;
     @Inject
-    UserRepo repouser;
-    @Inject
-    PlaylistRepo playlistRepo;
-    @Inject
-    SongRepo songRepo;
+    private UserRepoImpl userRepo;
+    private User user;
+
+    public UserResource(UserService userService) {
+        this.userService = userService;
+    }
+    //private final Playlist hobbyService;
+
 
     @POST
     @Transactional
     public Response addUser(UserDOT newUser) {
-        User user = new User(newUser.getUsername(), newUser.getName(), newUser.getLastname(), newUser.getEmail(), newUser.getPassword());
-        repouser.persist(user);
-
-        return Response.ok(user).build();
+        return Response.ok(this.userService.addUser(
+                newUser.getUsername(),
+                newUser.getEmail(),
+                newUser.getLastname(),
+                newUser.getPassword(),
+                newUser.getName())).build();
     }
 
     @POST
     @Transactional
-    @Path("add/{id}")
-    public Response addPlaylist(@PathParam("id") Long id, String name) {
+    @Path("add/{id}/")
+    public Response addPlaylist(@PathParam("id") Long id, PlaylistDOT newPlaylist) {
 
-        User user = this.repouser.findById(id);
+        User user = this.userService.getUser(id);
+        if (user == null) {
+            return Response.status(404).build();
+        }
 
-        Playlist playlist = new Playlist(name);
-
-        this.playlistRepo.persist(playlist);
-        System.out.println(user.toString());
-
-
-        this.repouser.addPlaylist(user,playlist);
-
-
-
-
-        System.out.println(user.playlistList.size() + " test");
-
-
+        this.userService.addPlaylist(user, newPlaylist.getName(), newPlaylist.getId());
         return Response.ok().build();
     }
 
@@ -61,14 +56,14 @@ public class UserResource {
     @GET
     @Path("all")
     public Response getallUser() {
-        var allUser = repouser.listAll();
-        return Response.ok(allUser).build();
+        var allPeople = this.userService.getAll();
+        return Response.ok(allPeople).build();
     }
 
     @GET
     @Path("{id}")
     public Response getUserById(@PathParam("id") Long id) {
-        User user = repouser.findById(id);
+        User user = this.userService.getUser(id);
         return (user == null
                 ? Response.status(404)
                 : Response.ok(user))
@@ -80,9 +75,9 @@ public class UserResource {
     public Response login(@PathParam("value") String password,
                           @PathParam("username") String username) {
         //repo.getPassword(username);
-        System.out.println(repouser.getPassword(username) + " " + password);
+        System.out.println(userRepo.getPassword(username) + " " + password);
 
-        if (repouser.getPassword(username).equals(password)) {
+        if (userRepo.getPassword(username).equals(password)) {
             return Response.ok().build();
         } else {
             return Response.serverError().build();

@@ -1,32 +1,48 @@
 package at.ac.htl.leonding.workloads.user;
 
 import at.ac.htl.leonding.workloads.playlist.Playlist;
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Entity
 @Table(name = "\"User\"")
-public class User extends PanacheEntity {
-
+public class User extends PanacheEntityBase {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     public String username, name, lastname, email, password;
 
 
-    @Transient
-    @OneToMany(mappedBy = "user")
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     public List<Playlist> playlistList = new ArrayList<>();
 
+    public static User create(String username, String name, String lastname, String email, String password) {
+        var newUser = new User();
+        newUser.setName(name);
+        newUser.setLastname(lastname);
+        newUser.setUsername(username);
+        newUser.setEmail(email);
+        newUser.setPassword(password);
+        return newUser;
 
-    public void addPlaylist( Playlist playlist) {
+    }
 
-        playlistList.add(playlist);
-        playlist.setUser(this);
+
+    public Playlist addPlaylist(String name, long id) {
+        Playlist playlistnew = new Playlist();
+        playlistnew.setName(name);
+        //playlistnew.setId(id);
+        playlistnew.setUser(this);
+        System.out.println("hilfe");
+        // System.out.println(this.name + "test");
+        this.playlistList.add(playlistnew);
+        return playlistnew;
+        //playlist.setUser(this);
         //playlist.setUser(this);
     }
 
@@ -38,6 +54,14 @@ public class User extends PanacheEntity {
         this.email = email;
         this.password = password;
 
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public User() {
