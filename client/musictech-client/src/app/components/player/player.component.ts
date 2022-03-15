@@ -155,30 +155,36 @@ export class PlayerComponent {
   cloudService: CloudService;
   found :boolean;
   inputstring : string = ""
+  searchstring: String;
   myMethod(event: any){
    // this.inputstring += event.target.value;
+    this.files = this.tmpFiles.filter((file:{name:string}) => {
+      return file.name.toLowerCase().includes(this.searchstring.toLowerCase());
+    })
+    /* for (this.j = 0; this.j < this.tmpFiles.length; this.j++) {
+      *
 
-    for (this.j = 0; this.j < this.tmpFiles.length; this.j++) {
+       if (this.tmpFiles[this.j].name.toLowerCase().includes(event.target.value.toLowerCase())) {
+         this.newFiles.push(this.files[this.j]);
 
-      if (this.tmpFiles[this.j].name.toLowerCase().includes(event.target.value.toLowerCase())) {
-        this.newFiles.push(this.files[this.j]);
+         console.table(this.newFiles)
+         this.found = true;
+         //break;
+       }else{
+         this.newFiles.length = 0;
+         this.files = this.tmpFiles;
+       }
 
-        console.table(this.newFiles)
-        this.found = true;
-        //break;
-      }else{
-        this.newFiles.length = 0;
-        this.files = this.tmpFiles;
-      }
+     }
+     console.log(this.found);
+     console.log(event.target.value);
 
-    }
-    console.log(this.found);
-    console.log(event.target.value);
+     if (!this.found) {
+       this.files =  this.tmpFiles;
+     }
+       this.files = this.newFiles;
 
-    if (!this.found) {
-      this.files =  this.tmpFiles;
-    }
-      this.files = this.newFiles;
+        */
 
   }
 

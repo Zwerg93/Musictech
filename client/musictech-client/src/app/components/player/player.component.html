@@ -11,7 +11,7 @@
 
   <div class="container position-sticky my-1 top-0">
     <form class="d-flex">
-      <input id="searchinput" class="form-control bg-dark text-light me-2" placeholder="Search" aria-label="Search" type="search" (keypress)="myMethod($event)" #myInput />
+      <input [(ngModel)]="searchstring" #ctrl="ngModel" id="searchinput" class="form-control bg-dark text-light me-2" placeholder="Search" aria-label="Search" type="search" (keyup)="myMethod($event)" [ngModelOptions]="{standalone: true}"/>
       <button (click)="cancelSearch();" class="btn bg-primary" type="submit">Cancel</button>
     </form>
   </div>
