@@ -11,8 +11,8 @@
 
   <div class="container position-sticky my-1 top-0">
     <form class="d-flex">
-      <input class="form-control bg-dark text-light me-2" placeholder="Search" aria-label="Search" type="search" (keypress)="myMethod(myInput.value)" #myInput />
-      <button class="btn bg-primary" type="submit">Search</button>
+      <input id="searchinput" class="form-control bg-dark text-light me-2" placeholder="Search" aria-label="Search" type="search" (keypress)="myMethod($event)" #myInput />
+      <button (click)="cancelSearch();" class="btn bg-primary" type="submit">Cancel</button>
     </form>
   </div>
   <!-- src/app/pages/player/player.component.html -->

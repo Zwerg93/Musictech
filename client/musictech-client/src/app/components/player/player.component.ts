@@ -1,7 +1,6 @@
 import {Component, HostListener} from '@angular/core';
 import {AudioService} from '../../services/audio.service';
 import {CloudService} from '../../services/cloud.service';
-import {StreamState} from '../../interfaces/stream-state';
 import {timer} from "rxjs";
 
 //import { AuthService } from '../../services/auth.service';
@@ -13,13 +12,16 @@ import {timer} from "rxjs";
 })
 export class PlayerComponent {
   files: Array<any> = [];
+  newFiles: Array<any> = [];
+  tmpFiles: Array<any> = [];
+
   test = true
   isplaying = false;
   state;  //: StreamState;
   currentFile: any = {};
   private j: number = 0;
 
-
+/*
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (event.keyCode == KEY_CODE.SPACE) {
@@ -47,11 +49,17 @@ export class PlayerComponent {
     }
   }
 
+
+
+ */
+
+
+
   constructor(private audioService: AudioService, cloudService: CloudService) {
     cloudService.onload();
     // get media files
 
-    //    localStorage.setItem('clickCounter', clicks);
+    // localStorage.setItem('currentTime', time);
 
 
     timer(200).subscribe(x => {
@@ -59,7 +67,8 @@ export class PlayerComponent {
       // }
       cloudService.getFiles().subscribe(files => {
 
-        this.files = files;
+        this.files = files
+        this.tmpFiles = files;
       });
     })
 
@@ -142,23 +151,47 @@ export class PlayerComponent {
   randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
- searchstring;
 
-  myMethod(value:string){
+  cloudService: CloudService;
+  found :boolean;
+  inputstring : string = ""
+  myMethod(event: any){
+   // this.inputstring += event.target.value;
 
-    this.searchstring+= value;
+    for (this.j = 0; this.j < this.tmpFiles.length; this.j++) {
 
-    let found;
-    for (this.j = 0; this.j < this.files.length; this.j++){
-      console.log(this.files[this.j].name);
-      found = this.files[this.j].name.includes(value);
+      if (this.tmpFiles[this.j].name.toLowerCase().includes(event.target.value.toLowerCase())) {
+        this.newFiles.push(this.files[this.j]);
+
+        console.table(this.newFiles)
+        this.found = true;
+        //break;
+      }else{
+        this.newFiles.length = 0;
+        this.files = this.tmpFiles;
+      }
 
     }
+    console.log(this.found);
+    console.log(event.target.value);
 
-    console.log(found);
-    console.log(value);
+    if (!this.found) {
+      this.files =  this.tmpFiles;
+    }
+      this.files = this.newFiles;
 
   }
+
+  cancelSearch() {
+    this.inputstring = "";
+    console.log("succes")
+    this.files = this.tmpFiles;
+    //searchinput
+    document.getElementById("searchinput")!.innerHTML = "";
+
+  }
+
+
 }
 
 export enum KEY_CODE {
