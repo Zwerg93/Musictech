@@ -8,6 +8,13 @@
 </head>
 <body>
 <main>
+
+  <div class="container position-sticky my-1 top-0">
+    <form class="d-flex">
+      <input class="form-control bg-dark text-light me-2" placeholder="Search" aria-label="Search" type="search" (keypress)="myMethod(myInput.value)" #myInput />
+      <button class="btn bg-primary" type="submit">Search</button>
+    </form>
+  </div>
   <!-- src/app/pages/player/player.component.html -->
   <div class="container">
 
@@ -29,24 +36,29 @@
 
   </div>
 
-  <div class="">
+  <div class="m-0 p-0">
     <div class="media-footer position-fixed bottom-0 w-100 ">
-      <div class="bg-dark text-center ">
+      <div class="bg-dark text-center w-100 ">
 
-        <div class="row text-light">
-          <div class="col text-light mt-2"> {{ state?.readableCurrentTime }}</div>
-          <mat-slider class="w-100 col time-slider text-light" min="0" [max]="state?.duration" step="1" [value]="state?.currentTime"
+        <div class="row text-light ">
+
+          <mat-slider class="w-50 col time-slider text-light" min="0" [max]="state?.duration" step="1"
+                      [value]="state?.currentTime"
                       (input)="onSliderChangeEnd($event)"></mat-slider>
 
-          <div class="col text-light mt-2 mx5">{{ state?.readableDuration }}</div>
+        </div>
+        <div class="row text-light">
+          <div class="col h6 text-light mt-2"> {{ state?.readableCurrentTime }}</div>
+          <div class="col h6 text-light mt-2 mx5">{{ state?.readableDuration }}</div>
         </div>
 
-        <div class="media-action-bar bg-dark pb-5 text-center">
+
+        <div class="media-action-bar bg-dark pb-3 text-center">
           <button mat-button (click)="test = true; autoplayfunc(test)">
-            <i class= "text-primary bi bi-heart-fill"></i>
+            <i class="text-primary bi bi-heart-fill"></i>
           </button>
           <button mat-button [disabled]="isFirstPlaying()" (click)="previous()">
-            <mat-icon  class="text-primary"mat-list-icon>skip_previous</mat-icon>
+            <mat-icon class="text-primary" mat-list-icon>skip_previous</mat-icon>
           </button>
 
 
@@ -60,11 +72,13 @@
             <mat-icon class="text-primary" mat-list-icon>skip_next</mat-icon>
           </button>
           <button mat-button (click)="random()">
-            <i  class="bi bi-shuffle text-primary"></i>
+            <i class="bi bi-shuffle text-primary"></i>
           </button>
-
-          <input type="range" id="volume-control">
         </div>
+        <div class="">
+          <input class="" type="range" id="volume-control">
+        </div>
+
       </div>
     </div>
   </div>

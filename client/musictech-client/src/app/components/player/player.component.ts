@@ -17,6 +17,7 @@ export class PlayerComponent {
   isplaying = false;
   state;  //: StreamState;
   currentFile: any = {};
+  private j: number = 0;
 
 
   @HostListener('window:keyup', ['$event'])
@@ -53,7 +54,7 @@ export class PlayerComponent {
     //    localStorage.setItem('clickCounter', clicks);
 
 
-    timer(520).subscribe(x => {
+    timer(200).subscribe(x => {
       //if (this.currentFile.index == this.currentFile.index){
       // }
       cloudService.getFiles().subscribe(files => {
@@ -70,6 +71,7 @@ export class PlayerComponent {
 
         this.state = state;
       });
+
   }
 
   playStream(url) {
@@ -139,6 +141,23 @@ export class PlayerComponent {
 
   randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+ searchstring;
+
+  myMethod(value:string){
+
+    this.searchstring+= value;
+
+    let found;
+    for (this.j = 0; this.j < this.files.length; this.j++){
+      console.log(this.files[this.j].name);
+      found = this.files[this.j].name.includes(value);
+
+    }
+
+    console.log(found);
+    console.log(value);
+
   }
 }
 

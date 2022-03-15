@@ -27,9 +27,7 @@ export class UploadComponent implements OnInit {
 
     const fd = new FormData();
 
-
     fd.append('uploadedFile', this.selectetFile, output);
-
 
     this.http.post('http://localhost:8080/uploadFile/upload', fd).subscribe(
       result => {
@@ -50,23 +48,14 @@ export class UploadComponent implements OnInit {
           "  </fieldset>"
       }
     );
-
   }
 
   download() {
     var str = (<HTMLInputElement>document.getElementById("link")).value;
     console.log(str)
-
     var re ="https://www.youtube.com/watch?v=";
-
-   // var str1 = "Apples are round, and apples are juicy.";
     var newstr = str.replace(re, "");
     console.log(newstr)
-    //https://www.youtube.com/watch?v=-yyq-Kr06D8
-
-
-
     document.getElementById("iframe")!.innerHTML = '<iframe id="iframe" src="https://www.yt-download.org/api/button/mp3/' + newstr + '" width="100%" height="100px" scrolling="no" style="border:none;"></iframe>'
-
   }
 }

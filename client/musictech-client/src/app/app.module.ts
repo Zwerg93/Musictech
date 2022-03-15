@@ -20,6 +20,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MaterialModule} from "./material.module";
 import {MatSliderModule} from "@angular/material/slider";
 import {HttpClientModule} from "@angular/common/http";
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import {HttpClientModule} from "@angular/common/http";
     MaterialModule,
     MatListModule,
     MatSliderModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
 
   ],
   providers: [],
