@@ -40,5 +40,9 @@ jobs:
           ls -a ./target
         working-directory: server/
 
+      - name: copy jar file to vm
+        run: |
+          scp target/*.jar server
+        working-directory: server/
 
           
