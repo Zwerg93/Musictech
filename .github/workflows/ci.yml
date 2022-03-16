@@ -25,10 +25,20 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: install ssh key
+        uses: caberger/install-ssh-key@v1.0
+        with:
+          ssh-private-key: ${{ secrets.KEY }}
+          user: ${{ secrets.SERVER_USER }}
+          server: ${{ secrets.SERVER }}
+          alias: server
+
 
       - name: build-application-server
         run: |
           mvn clean package
           ls -a ./target
         working-directory: server/
+
+
           
