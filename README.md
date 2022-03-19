@@ -19,24 +19,24 @@ this project for school, and startet do like the things I createt. So i started 
 
 # todo
 
-Design!
-Add profile side
-add possibility to update your Profile and see your stats
-add possibility to delete files, add them to a playlist
-add possibility to create new playlists
-add function to play songs after the last one has stopped
-add algorithm for favourite songs (and maybe for searching songs)
-add volumne slider
-add feedack for user when he uses a feature of the app (like upload, add to playlist and so on)
-mark songs which are in the favourits playlist with a filled heart
-get rid of the bootstrap look (color and so on)
-work on the design for pc and laptops
-CI/CD
-make a docker file to start everything (server, client and database) and maybe run everything naitive
-release a first executable file 
-recommend new songs
-!add api to server, which looks in youtube trends for new songs and add them to a playlist "trends"
-(offline music)
-native app
-connect multible browser where the same user is logged in (multi stream) and control the devices
+Design! <br>
+Add profile side <br>
+add possibility to update your Profile and see your stats <br>
+add possibility to delete files, add them to a playlist <br>
+add possibility to create new playlists <br>
+add function to play songs after the last one has stopped <br>
+add algorithm for favourite songs (and maybe for searching songs) <br>
+add volumne slider <br>
+add feedack for user when he uses a feature of the app (like upload, add to playlist and so on) <br>
+mark songs which are in the favourits playlist with a filled heart <br>
+get rid of the bootstrap look (color and so on) <br>
+work on the design for pc and laptops <br>
+CI/CD <br>
+make a docker file to start everything (server, client and database) and maybe run everything naitive <br>
+release a first executable file  <br>
+recommend new songs <br>
+!add api to server, which looks in youtube trends for new songs and add them to a playlist "trends" <br>
+(offline music) <br>
+native app <br>
+connect multible browser where the same user is logged in (multi stream) and control the devices <br>
 
