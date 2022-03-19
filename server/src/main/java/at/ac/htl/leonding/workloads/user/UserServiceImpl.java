@@ -18,11 +18,22 @@ public class UserServiceImpl implements UserService{
     public List<User> getAll() {
         return this.userRepo.getAll();
     }
+    @Override
+    public List<Playlist> getPlaylistbyname(String username) {
+        return this.userRepo.getAllPlaylistsbyUsername(username);
+    }
 
     @Override
     public User getUser(Long id) {
         return this.userRepo.getUser(id);
     }
+
+    @Override
+    public User getUserbyname(String name) {
+        return this.userRepo.getUserbyName(name);
+    }
+
+
 
     @Override
     public void addPlaylist(User user, String name, long id) {
@@ -43,4 +54,6 @@ public class UserServiceImpl implements UserService{
     public void removePlaylist(User usre, Playlist playlist) {
 
     }
+
+
 }

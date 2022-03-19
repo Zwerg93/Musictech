@@ -5,7 +5,6 @@ import at.ac.htl.leonding.models.UserDOT;
 import at.ac.htl.leonding.workloads.user.User;
 import at.ac.htl.leonding.workloads.user.UserRepoImpl;
 import at.ac.htl.leonding.workloads.user.UserService;
-
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
@@ -58,6 +57,21 @@ public class UserResource {
     public Response getallUser() {
         var allPeople = this.userService.getAll();
         return Response.ok(allPeople).build();
+    }
+
+    @GET
+    @Path("getuser/{username}")
+    public Response getUserByName(@PathParam("username") String username) {
+        User user = this.userService.getUserbyname(username);
+        System.out.println(username + " fasd tets");
+        return Response.ok(user).build();
+    }
+    @GET
+    @Path("getPlalist/{username}")
+    public Response getPlaylistByUser(@PathParam("username") String username) {
+        var allPlaylists = this.userService.getPlaylistbyname(username);
+        System.out.println(username + " fasd tets");
+        return Response.ok(allPlaylists).build();
     }
 
     @GET

@@ -2,7 +2,6 @@ package at.ac.htl.leonding.workloads.user;
 
 
 import at.ac.htl.leonding.workloads.playlist.Playlist;
-import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
@@ -25,6 +24,14 @@ public class UserRepoImpl implements UserRepo {
                         User.class);
         return query.getResultList();
     }
+    @Override
+    public List<Playlist> getAllPlaylistsbyUsername(String username) {
+        TypedQuery<Playlist> query = this.entityManager
+                .createQuery("select p from Playlist p where p.user.username = :id",
+                        Playlist.class);
+        query.setParameter("id", username);
+        return query.getResultList();
+    }
 
     @Override
     public User getUser(Long id) {
@@ -37,6 +44,19 @@ public class UserRepoImpl implements UserRepo {
     }
 
     @Override
+    public User getUserbyName(String name) {
+        System.out.println(name + " :name");
+        TypedQuery<User> query = this.entityManager
+                .createQuery("select p from User p where p.username = :id",
+                        User.class);
+        query.setParameter("id", name);
+        return query.getResultList().stream()
+                .findFirst().orElse(null);
+    }
+
+
+
+    @Override
     public void update(User user) {
         //System.out.println(user.playlistList.get(0).getName() + "fuck h");
         this.entityManager.merge(user);
@@ -46,6 +66,7 @@ public class UserRepoImpl implements UserRepo {
     public void add(User p) {
         this.entityManager.persist(p);
     }
+
 
     public String getPassword(String username) {
         TypedQuery<String> query = this.entityManager

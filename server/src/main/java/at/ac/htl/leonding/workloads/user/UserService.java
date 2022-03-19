@@ -14,4 +14,7 @@ public interface UserService {
 
     User addUser(String username,String name, String lastname, String email, String password);
     void removePlaylist(User usre, Playlist playlist);
+
+    User getUserbyname(String name);
+    List<Playlist> getPlaylistbyname(String username);
 }

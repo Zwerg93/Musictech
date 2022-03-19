@@ -1,5 +1,7 @@
 package at.ac.htl.leonding.workloads.user;
 
+import at.ac.htl.leonding.workloads.playlist.Playlist;
+
 import java.util.List;
 
 public interface UserRepo {
@@ -10,4 +12,8 @@ public interface UserRepo {
     void update(User user);
 
     void add(User p);
+
+    User getUserbyName(String name);
+
+    List<Playlist> getAllPlaylistsbyUsername(String username);
 }
