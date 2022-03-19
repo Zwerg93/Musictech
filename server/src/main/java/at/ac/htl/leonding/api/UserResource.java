@@ -32,10 +32,10 @@ public class UserResource {
     public Response addUser(UserDOT newUser) {
         return Response.ok(this.userService.addUser(
                 newUser.getUsername(),
-                newUser.getEmail(),
+                newUser.getName(),
                 newUser.getLastname(),
-                newUser.getPassword(),
-                newUser.getName())).build();
+                newUser.getEmail(),
+                newUser.getPassword())).build();
     }
 
     @POST
