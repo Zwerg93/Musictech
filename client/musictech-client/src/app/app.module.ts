@@ -21,6 +21,7 @@ import {MaterialModule} from "./material.module";
 import {MatSliderModule} from "@angular/material/slider";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
+import { RegisterComponent } from './components/register/register.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {FormsModule} from "@angular/forms";
     UploadComponent,
     LogInComponent,
     PlaylistComponent,
-    SearchComponent
+    SearchComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

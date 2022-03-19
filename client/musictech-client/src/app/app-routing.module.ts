@@ -7,6 +7,7 @@ import {UploadComponent} from "./components/upload/upload.component";
 import {LogInComponent} from "./components/log-in/log-in.component";
 import {SearchComponent} from "./components/search/search.component";
 import {PlaylistComponent} from "./components/playlist/playlist.component";
+import {RegisterComponent} from "./components/register/register.component";
 
 const routes: Routes = [
   {
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'search',
     component: SearchComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   },
 
 ];
