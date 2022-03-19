@@ -12,6 +12,10 @@ to execute the server, you have to type 'mvn quarkus:dev'
 
 when i release the first version, everything will work with docker and run native on your linux device
 
+# about
+
+i createt this project because i hatet all existing streaming apps. All of them were ugly, expensive or flooded with advertising. So i startet to develop 
+this project for school, and startet do like the things I createt. So i started working on the app privately and add more and more features. In the end I want to have an application i actually want to use. 
 
 # todo
 
