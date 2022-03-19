@@ -34,3 +34,9 @@ work on the design for pc and laptops
 CI/CD
 make a docker file to start everything (server, client and database) and maybe run everything naitive
 release a first executable file 
+recommend new songs
+!add api to server, which looks in youtube trends for new songs and add them to a playlist "trends"
+(offline music)
+native app
+connect multible browser where the same user is logged in (multi stream) and control the devices
+
