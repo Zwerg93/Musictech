@@ -1,9 +1,9 @@
-import {Component, HostListener} from '@angular/core';
+import {Component} from '@angular/core';
 import {AudioService} from '../../services/audio.service';
 import {CloudService} from '../../services/cloud.service';
 import {timer} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
-//import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-player',
@@ -12,84 +12,71 @@ import {timer} from "rxjs";
 })
 export class PlayerComponent {
   files: Array<any> = [];
-  newFiles: Array<any> = [];
   tmpFiles: Array<any> = [];
-
   test = true
   isplaying = false;
-  state;  //: StreamState;
+  state;
   currentFile: any = {};
-  private j: number = 0;
+  itemList: any;
+  user: any;
+  cloudService: CloudService;
+  searchstring: String;
 
-/*
-  @HostListener('window:keyup', ['$event'])
-  keyEvent(event: KeyboardEvent) {
-    if (event.keyCode == KEY_CODE.SPACE) {
-      if (this.isplaying){
-        this.pause();
-      }else{
-        this.play();
-      }
-    }else if(event.keyCode == KEY_CODE.N_BUTTON){
-      this.next()
-    }else if(event.keyCode == KEY_CODE.P_BUTTON){
-      this.previous()
-    }else if(event.keyCode == KEY_CODE.LEFT_ARROW){
-      console.log(this.audioService.audioObj.currentTime);
-      if(this.audioService.audioObj.currentTime>10){
-        this.audioService.audioObj.currentTime -=10;
-      }
-    }else if(event.keyCode == KEY_CODE.RIGHT_ARROW){
-      console.log(this.audioService.audioObj.currentTime);
-      console.log(this.state.readableDuration)
-      if(this.audioService.audioObj.currentTime<this.state.readableDuration+10){
-        this.audioService.audioObj.currentTime +=10;
+  /*
+    @HostListener('window:keyup', ['$event'])
+    keyEvent(event: KeyboardEvent) {
+      if (event.keyCode == KEY_CODE.SPACE) {
+        if (this.isplaying){
+          this.pause();
+        }else{
+          this.play();
+        }
+      }else if(event.keyCode == KEY_CODE.N_BUTTON){
+        this.next()
+      }else if(event.keyCode == KEY_CODE.P_BUTTON){
+        this.previous()
+      }else if(event.keyCode == KEY_CODE.LEFT_ARROW){
+        console.log(this.audioService.audioObj.currentTime);
+        if(this.audioService.audioObj.currentTime>10){
+          this.audioService.audioObj.currentTime -=10;
+        }
+      }else if(event.keyCode == KEY_CODE.RIGHT_ARROW){
+        console.log(this.audioService.audioObj.currentTime);
+        console.log(this.state.readableDuration)
+        if(this.audioService.audioObj.currentTime<this.state.readableDuration+10){
+          this.audioService.audioObj.currentTime +=10;
 
+        }
       }
     }
-  }
 
 
 
- */
+   */
+  private errors: any;
 
 
-
-  constructor(private audioService: AudioService, cloudService: CloudService) {
+  constructor(private audioService: AudioService, cloudService: CloudService, private http: HttpClient) {
     cloudService.onload();
-    // get media files
-
-    // localStorage.setItem('currentTime', time);
-
-
-    timer(200).subscribe(x => {
-      //if (this.currentFile.index == this.currentFile.index){
-      // }
+    timer(400).subscribe(x => {
+      this.getPlaylists()
       cloudService.getFiles().subscribe(files => {
-
         this.files = files
         this.tmpFiles = files;
       });
     })
 
-
-    // listen to stream state
     this.audioService.getState()
       .subscribe(state => {
-        //console.log( this.audioService.play())
-
         this.state = state;
       });
-
   }
 
   playStream(url) {
     this.audioService.playStream(url)
       .subscribe(events => {
-        // listening for fun here
       });
   }
-
 
   openFile(file, index) {
     this.currentFile = {index, file};
@@ -106,7 +93,6 @@ export class PlayerComponent {
     this.audioService.play();
     this.isplaying = true;
   }
-
 
   random() {
     const index = this.randomIntFromInterval(0, this.files.length - 1);
@@ -143,7 +129,6 @@ export class PlayerComponent {
     this.audioService.seekTo(change.value);
   }
 
-
   autoplayfunc(test) {
     this.audioService.autoplayfunc(test);
   };
@@ -152,51 +137,81 @@ export class PlayerComponent {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
 
-  cloudService: CloudService;
-  found :boolean;
-  inputstring : string = ""
-  searchstring: String;
-  myMethod(event: any){
-   // this.inputstring += event.target.value;
-    this.files = this.tmpFiles.filter((file:{name:string}) => {
+  myMethod(event: any) {
+    this.files = this.tmpFiles.filter((file: { name: string }) => {
       return file.name.toLowerCase().includes(this.searchstring.toLowerCase());
     })
-    /* for (this.j = 0; this.j < this.tmpFiles.length; this.j++) {
-      *
-
-       if (this.tmpFiles[this.j].name.toLowerCase().includes(event.target.value.toLowerCase())) {
-         this.newFiles.push(this.files[this.j]);
-
-         console.table(this.newFiles)
-         this.found = true;
-         //break;
-       }else{
-         this.newFiles.length = 0;
-         this.files = this.tmpFiles;
-       }
-
-     }
-     console.log(this.found);
-     console.log(event.target.value);
-
-     if (!this.found) {
-       this.files =  this.tmpFiles;
-     }
-       this.files = this.newFiles;
-
-        */
-
   }
 
   cancelSearch() {
-    this.inputstring = "";
-    console.log("succes")
     this.files = this.tmpFiles;
-    //searchinput
-    document.getElementById("searchinput")!.innerHTML = "";
+    (<HTMLInputElement>document.getElementById("searchinput")).value = '';
+  }
+
+  getPlaylists() {
+    if (sessionStorage.getItem('username') != null) {
+
+      this.http.get('http://192.168.0.18:8080/user/getPlalist/' + sessionStorage.getItem('username')).toPromise().then((response: any) => {
+        this.itemList = response;
+
+        console.table(this.itemList);
+
+        //  this.files = this.itemList[0].songList;
+      })
+    }
+  }
+
+
+  getSongsFromPlalist(name: number) {
+    //console.log(name -1);
+    console.table(this.itemList[name - 1].songList)
+    this.files = this.itemList[name - 1].songList;
 
   }
 
+
+  allSongs() {
+    this.files = this.tmpFiles;
+  }
+
+   addToFavourits(currentFile: any) {
+    if (sessionStorage.getItem('username') != null) {
+
+       this.http.get('http://192.168.0.18:8080/user/getuser/' + sessionStorage.getItem('username')).toPromise().then((response: any) => {
+        this.user = response;
+        this.asyncaddTofav(currentFile);
+        console.table(this.user.id + " Userid");
+      })
+
+
+    } else {
+      console.log("not logged in")
+    }
+    console.log(currentFile.file.id)
+  }
+
+  asyncaddTofav(currentFile: any){
+
+    this.http.post('http://192.168.0.18:8080/user/add/'+this.user.id+'/'+currentFile.file.id+'', null).subscribe(
+      result => {
+      },
+      error => {
+        this.errors = error;
+        document.getElementById("showresult")!.innerHTML = "<fieldset>\n" +
+          "    <div >\n" +
+          "<p>Error. Pls try again!</p>" +
+          "    </div>\n" +
+          "  </fieldset>"
+      },
+      () => {
+        document.getElementById("showresult")!.innerHTML = "<fieldset>\n" +
+          "    <div >\n" +
+          "<p>Succes!</p>" +
+          "    </div>\n" +
+          "  </fieldset>"
+      }
+    );
+  }
 
 }
 

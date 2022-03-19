@@ -14,7 +14,7 @@ export class CloudService {
   public itemList: { url: string, name: string, artist: string }[] = [];
 
   onload() {
-      this.http.get('http://localhost:8080/song/all').toPromise().then((response: any) => {
+      this.http.get('http://192.168.0.18:8080/song/all').toPromise().then((response: any) => {
       this.itemList = response;
       console.table(this.itemList);
     });

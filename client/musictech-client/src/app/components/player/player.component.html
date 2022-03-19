@@ -5,17 +5,39 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Player</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 </head>
 <body>
 <main>
+  <!-- Search bar-->
 
   <div class="container position-sticky my-1 top-0">
     <form class="d-flex">
-      <input [(ngModel)]="searchstring" #ctrl="ngModel" id="searchinput" class="form-control bg-dark text-light me-2" placeholder="Search" aria-label="Search" type="search" (keyup)="myMethod($event)" [ngModelOptions]="{standalone: true}"/>
+      <input [(ngModel)]="searchstring" #ctrl="ngModel" id="searchinput" class="form-control bg-dark text-light me-2"
+             placeholder="Search" aria-label="Search" type="search" (keyup)="myMethod($event)"
+             [ngModelOptions]="{standalone: true}"/>
       <button (click)="cancelSearch();" class="btn bg-primary" type="submit">Cancel</button>
     </form>
   </div>
-  <!-- src/app/pages/player/player.component.html -->
+
+  <div id="showresult">
+
+  </div>
+  <!-- Wiedergabelisten -->
+
+  <div class="container">
+    <div class="row overflow-auto ">
+      <div class="col" *ngFor="let element of itemList; let i = index">
+        <p type="button" (click)="getSongsFromPlalist(itemList[i].id)"> {{ itemList[i].name }}</p>
+      </div>
+
+    </div>
+    <p type="button" (click)="allSongs()"> All Songs</p>
+
+  </div>
+
+
+  <!-- Player and songs-->
   <div class="container">
 
     <div class="content text-black">
@@ -28,14 +50,16 @@
           <h5 mat-line class="text-dark">by {{ file.artist }}</h5>
           <mat-icon color="primary" *ngIf="currentFile.index === i && !state?.error">volume_up</mat-icon>
           <h6 *ngIf="currentFile.index === i && state?.error">ERROR</h6>
+
           <mat-divider></mat-divider>
         </mat-list-item>
+
       </mat-list>
     </div>
 
 
   </div>
-
+  <!-- navigation tool-->
   <div class="m-0 p-0">
     <div class="media-footer position-fixed bottom-0 w-100 ">
       <div class="bg-dark text-center w-100 ">
@@ -52,36 +76,39 @@
           <div class="col h6 text-light mt-2 mx5">{{ state?.readableDuration }}</div>
         </div>
 
-
-        <div class="media-action-bar bg-dark pb-3 text-center">
-          <button mat-button (click)="test = true; autoplayfunc(test)">
-            <i class="text-primary bi bi-heart-fill"></i>
-          </button>
-          <button mat-button [disabled]="isFirstPlaying()" (click)="previous()">
-            <mat-icon class="text-primary" mat-list-icon>skip_previous</mat-icon>
-          </button>
-
-
-          <button mat-button (click)="play()" [disabled]="state?.error" *ngIf="!state?.playing">
-            <mat-icon class="text-primary" mat-list-icon>play_circle_filled</mat-icon>
-          </button>
-          <button mat-button (click)="pause()" *ngIf="state?.playing">
-            <mat-icon class="text-primary" mat-list-icon>pause</mat-icon>
-          </button>
-          <button mat-button [disabled]="isLastPlaying()" (click)="next()">
-            <mat-icon class="text-primary" mat-list-icon>skip_next</mat-icon>
-          </button>
-          <button mat-button (click)="random()">
-            <i class="bi bi-shuffle text-primary"></i>
-          </button>
-        </div>
         <div class="">
-          <input class="" type="range" id="volume-control">
+          <div class="media-action-bar bg-dark pb-3 text-center">
+            <button mat-button (click)="test = true; autoplayfunc(test)">
+              <i (click)="addToFavourits(currentFile)" class="text-primary bi bi-heart"></i>
+
+            </button>
+            <button mat-button [disabled]="isFirstPlaying()" (click)="previous()">
+              <mat-icon class="text-primary" mat-list-icon>skip_previous</mat-icon>
+            </button>
+
+
+            <button mat-button (click)="play()" [disabled]="state?.error" *ngIf="!state?.playing">
+              <mat-icon class="text-primary" mat-list-icon>play_circle_filled</mat-icon>
+            </button>
+            <button mat-button (click)="pause()" *ngIf="state?.playing">
+              <mat-icon class="text-primary" mat-list-icon>pause</mat-icon>
+            </button>
+            <button mat-button [disabled]="isLastPlaying()" (click)="next()">
+              <mat-icon class="text-primary" mat-list-icon>skip_next</mat-icon>
+            </button>
+            <button mat-button (click)="random()">
+              <i class="bi bi-shuffle text-primary"></i>
+            </button>
+          </div>
+          <div class="">
+            <input class="" type="range" id="volume-control">
+          </div>
         </div>
 
       </div>
     </div>
   </div>
+
 
   <script>
     var volume = document.querySelector("#volume-control");
