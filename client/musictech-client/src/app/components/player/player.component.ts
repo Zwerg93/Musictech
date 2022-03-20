@@ -151,7 +151,7 @@ export class PlayerComponent {
   getPlaylists() {
     if (sessionStorage.getItem('username') != null) {
 
-      this.http.get('http://192.168.0.18:8080/user/getPlalist/' + sessionStorage.getItem('username')).toPromise().then((response: any) => {
+      this.http.get('http://192.168.0.22:8080/user/getPlalist/' + sessionStorage.getItem('username')).toPromise().then((response: any) => {
         this.itemList = response;
 
         console.table(this.itemList);
@@ -162,10 +162,11 @@ export class PlayerComponent {
   }
 
 
-  getSongsFromPlalist(name: number) {
+  getSongsFromPlalist(id: number) {
     //console.log(name -1);
-    console.table(this.itemList[name - 1].songList)
-    this.files = this.itemList[name - 1].songList;
+    console.log(id + "id ")
+    console.table(this.itemList[id].songList)
+    this.files = this.itemList[id].songList;
 
   }
 
@@ -176,11 +177,12 @@ export class PlayerComponent {
 
    addToFavourits(currentFile: any) {
     if (sessionStorage.getItem('username') != null) {
-
-       this.http.get('http://192.168.0.18:8080/user/getuser/' + sessionStorage.getItem('username')).toPromise().then((response: any) => {
+      console.log(sessionStorage.getItem('username'))
+      this.http.get('http://192.168.0.22:8080/user/getuser/' + sessionStorage.getItem('username')).toPromise().then((response: any) => {
         this.user = response;
         this.asyncaddTofav(currentFile);
-        console.table(this.user.id + " Userid");
+        console.log(this.user.id + "Userid");
+
       })
 
 
@@ -192,7 +194,7 @@ export class PlayerComponent {
 
   asyncaddTofav(currentFile: any){
 
-    this.http.post('http://192.168.0.18:8080/user/add/'+this.user.id+'/'+currentFile.file.id+'', null).subscribe(
+    this.http.post('http://192.168.0.22:8080/user/add/' + this.user.id + '/' + currentFile.file.id + '', null).subscribe(
       result => {
       },
       error => {

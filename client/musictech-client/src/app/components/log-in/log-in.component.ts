@@ -42,7 +42,7 @@ export class LogInComponent implements OnInit {
     console.log(this.username);
     console.log(this.password);
 
-    this.http.post('http://192.168.0.18:8080/user/autorize/' + this.username + '/' + this.password, null).subscribe(
+    this.http.post('http://192.168.0.22:8080/user/autorize/' + this.username + '/' + this.password, null).subscribe(
       result => {
       },
       error => {

@@ -10,7 +10,7 @@ import { UploadComponent } from './components/upload/upload.component';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { PlaylistComponent } from './components/playlist/playlist.component';
 import { SearchComponent } from './components/search/search.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatListModule} from "@angular/material/list";
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -39,7 +39,8 @@ import { RegisterComponent } from './components/register/register.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule,
+    NgbPaginationModule,
+    NgbAlertModule,
     BrowserAnimationsModule,
     MatListModule,
     MatToolbarModule,

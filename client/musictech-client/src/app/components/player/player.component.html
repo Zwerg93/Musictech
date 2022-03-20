@@ -28,7 +28,7 @@
   <div class="container">
     <div class="row overflow-auto ">
       <div class="col" *ngFor="let element of itemList; let i = index">
-        <p type="button" (click)="getSongsFromPlalist(itemList[i].id)"> {{ itemList[i].name }}</p>
+        <p type="button" (click)="getSongsFromPlalist(i)"> {{ itemList[i].name }}</p>
       </div>
 
     </div>
@@ -91,7 +91,7 @@
               <mat-icon class="text-primary" mat-list-icon>play_circle_filled</mat-icon>
             </button>
             <button mat-button (click)="pause()" *ngIf="state?.playing">
-              <mat-icon class="text-primary" mat-list-icon>pause</mat-icon>
+              <mat-icon class="text-primary" mat-list-icon>pause</mat-icon  >
             </button>
             <button mat-button [disabled]="isLastPlaying()" (click)="next()">
               <mat-icon class="text-primary" mat-list-icon>skip_next</mat-icon>
