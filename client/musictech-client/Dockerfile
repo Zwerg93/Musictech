@@ -1,14 +1,16 @@
-# Stage 1
-
-FROM node:17-alpine as build-step
-RUN mkdir -p /app
-WORKDIR /app
-COPY package.json /app
-RUN npm install
+FROM node:17-alpine as builder
+RUN apk add --no-cache chromium
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 COPY . /app
-RUN npm run build --prod
+WORKDIR /app
+RUN npm install
+#RUN npm run lint
+RUN npm run test
+RUN npm run build
 
-# Stage 2
+FROM nginx:1.17.10-alpine
+EXPOSE 80
+COPY --from=builder /app/dist/angular-docker-app /usr/share/nginx/html
 
-FROM nginx:1.21.6-alpine
-COPY --from=build-step /app/dist /usr/share/nginx/html
+
