@@ -30,9 +30,12 @@ services:
     #command: bash -c 'do sleep 1; done;'
     depends_on:
       - postgresdb
+      -
+    #command: ["./wait-for-postgres.sh", "db", "python", "app.py"]
+
     networks:
       - backend
-          #ipv4_address:172.24.0.3
+      #ipv4_address:172.24.0.3
       - frontend
 
 
