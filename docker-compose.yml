@@ -10,12 +10,12 @@ services:
       - ./init:/docker-entrypoint-initdb.d
       - pgdata:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: postpres
-      POSTGRES_PASSWORD: postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
 
     networks:
-      vpcbr:
-        ipv4_address: 192.168.0.21
+      - backend
 
   server:
     build: server/
@@ -26,11 +26,12 @@ services:
       - 8080
     volumes:
       - pgadmindata:/var/lib/server
+    #command: bash -c 'do sleep 1; done;'
     depends_on:
       - pg_db
     networks:
-      vpcbr:
-        ipv4_address: 192.168.0.22
+      - backend
+      - frontend
 
 
   client:
@@ -38,27 +39,23 @@ services:
     image: musictechclient
 
     ports:
-      - 80:4200
+      - 4200:80
     expose:
-      - 80
+      - 4200
     volumes:
       - pgadmindata:/var/lib/client
     depends_on:
       - server
     networks:
-      vpcbr:
-        ipv4_address: 192.168.0.23
+      - frontend
 
 networks:
-  vpcbr:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 192.0.0.0/8
-          gateway: 192.168.0.1
+  frontend:
+  backend:
 
 
 volumes:
   pgdata:
+  pgadmindata:
 
 

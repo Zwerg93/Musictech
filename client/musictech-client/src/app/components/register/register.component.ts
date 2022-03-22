@@ -65,7 +65,7 @@ export class RegisterComponent implements OnInit {
         username: this.username
       };
 
-      this.http.post('http://192.168.0.22:8080/user', data).subscribe(
+      this.http.post('http://172.24.0.3:8080/user', data).subscribe(
         result => {
         },
         error => {

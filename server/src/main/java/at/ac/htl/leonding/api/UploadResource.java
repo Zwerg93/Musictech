@@ -56,7 +56,7 @@ public class UploadResource {
                 InputStream inputStream = inputPart.getBody(InputStream.class, null);
                 System.out.println(fileName);
                 ;
-                postURL = "http://192.168.0.22:8080/uploadFile/download/" + fileName;
+                postURL = "http://172.24.0.3:8080/uploadFile/download/" + fileName;
                 System.out.println(postURL);
 
                 Song song = new Song(fileName, postURL);
