@@ -1,47 +1,64 @@
 services:
+
   pg_db:
     image: postgres:latest
     ports:
       - 5432:5432
     expose:
       - 5432
-    env_file:
-      - .env.db
     volumes:
       - ./init:/docker-entrypoint-initdb.d
       - pgdata:/var/lib/postgresql/data
-      
-  server: 
-    image: server/
-    
-    ports: 
-      - 5050:80
+    environment:
+      POSTGRES_USER: postpres
+      POSTGRES_PASSWORD: postgres
+
+    networks:
+      vpcbr:
+        ipv4_address: 192.168.0.21
+
+  server:
+    build: server/
+    image: musictechserver
+    ports:
+      - 8080:8080
+    expose:
+      - 8080
     volumes:
-      - pgadmindata:/var/lib/pgadmin
-    env_file:
-      - .env.pgadmin
+      - pgadmindata:/var/lib/server
     depends_on:
       - pg_db
     networks:
-      - dmz 
-      - dbz
-      
-         
-  client: 
-    image: client/musictech/
-    ports: 
-      - 5050:80
+      vpcbr:
+        ipv4_address: 192.168.0.22
+
+
+  client:
+    build: client/musictech-client/
+    image: musictechclient
+
+    ports:
+      - 80:4200
+    expose:
+      - 80
     volumes:
-      - pgadmindata:/var/lib/pgadmin
-    env_file:
-      - .env.pgadmin
+      - pgadmindata:/var/lib/client
     depends_on:
-      - pg_db
+      - server
     networks:
-      
-      
-      
+      vpcbr:
+        ipv4_address: 192.168.0.23
+
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.0.0.0/8
+          gateway: 192.168.0.1
+
+
 volumes:
   pgdata:
-  pgadmindata:
+
 

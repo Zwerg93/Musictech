@@ -1,16 +1,15 @@
-FROM node:17-alpine as builder
-RUN apk add --no-cache chromium
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
-COPY . /app
+
+# Stage 1
+
+FROM node:17-alpine as build-step
+RUN mkdir -p /app
 WORKDIR /app
+COPY package.json /app
 RUN npm install
-#RUN npm run lint
-RUN npm run test
-RUN npm run build
+COPY . /app
+RUN npm run build --prod
 
-FROM nginx:1.17.10-alpine
-EXPOSE 80
-COPY --from=builder /app/dist/angular-docker-app /usr/share/nginx/html
+# Stage 2
 
-
+FROM nginx:1.17.1-alpine
+COPY --from=build-step /app/dist/musictech-client /usr/share/nginx/html
