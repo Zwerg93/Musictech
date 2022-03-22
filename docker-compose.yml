@@ -1,6 +1,6 @@
 services:
 
-  pg_db:
+  postgresdb:
     image: postgres:latest
     ports:
       - 5432:5432
@@ -16,6 +16,7 @@ services:
 
     networks:
       - backend
+         # ipv4_address:172.24.0.2
 
   server:
     build: server/
@@ -28,9 +29,10 @@ services:
       - pgadmindata:/var/lib/server
     #command: bash -c 'do sleep 1; done;'
     depends_on:
-      - pg_db
+      - postgresdb
     networks:
       - backend
+          #ipv4_address:172.24.0.3
       - frontend
 
 
@@ -52,6 +54,7 @@ services:
 networks:
   frontend:
   backend:
+
 
 
 volumes:

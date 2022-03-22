@@ -151,7 +151,7 @@ export class PlayerComponent {
   getPlaylists() {
     if (sessionStorage.getItem('username') != null) {
 
-      this.http.get('http://172.24.0.3:8080/user/getPlalist/' + sessionStorage.getItem('username')).toPromise().then((response: any) => {
+      this.http.get('http://server8080/user/getPlalist/' + sessionStorage.getItem('username')).toPromise().then((response: any) => {
         this.itemList = response;
 
         console.table(this.itemList);
@@ -178,7 +178,7 @@ export class PlayerComponent {
    addToFavourits(currentFile: any) {
     if (sessionStorage.getItem('username') != null) {
       console.log(sessionStorage.getItem('username'))
-      this.http.get('http://172.24.0.3:8080/user/getuser/' + sessionStorage.getItem('username')).toPromise().then((response: any) => {
+      this.http.get('http://localhost:8080/user/getuser/' + sessionStorage.getItem('username')).toPromise().then((response: any) => {
         this.user = response;
         this.asyncaddTofav(currentFile);
         console.log(this.user.id + "Userid");
@@ -194,7 +194,7 @@ export class PlayerComponent {
 
   asyncaddTofav(currentFile: any){
 
-    this.http.post('http://172.24.0.38080/user/add/' + this.user.id + '/' + currentFile.file.id + '', null).subscribe(
+    this.http.post('http://server.38080/user/add/' + this.user.id + '/' + currentFile.file.id + '', null).subscribe(
       result => {
       },
       error => {

@@ -29,7 +29,7 @@ export class UploadComponent implements OnInit {
 
     fd.append('uploadedFile', this.selectetFile, output);
 
-    this.http.post('http://172.24.0.3:8080/uploadFile/upload', fd).subscribe(
+    this.http.post('http://localhost:8080/uploadFile/upload', fd).subscribe(
       result => {
       },
       error => {
