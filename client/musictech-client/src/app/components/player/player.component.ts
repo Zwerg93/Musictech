@@ -178,7 +178,7 @@ export class PlayerComponent {
    addToFavourits(currentFile: any) {
     if (sessionStorage.getItem('username') != null) {
       console.log(sessionStorage.getItem('username'))
-      this.http.get('http://localhost:8080/user/getuser/' + sessionStorage.getItem('username')).toPromise().then((response: any) => {
+      this.http.get('/api/user/getuser/' + sessionStorage.getItem('username')).toPromise().then((response: any) => {
         this.user = response;
         this.asyncaddTofav(currentFile);
         console.log(this.user.id + "Userid");

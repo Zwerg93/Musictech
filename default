@@ -1,0 +1,18 @@
+server{
+    listen 80;
+    listen [::] 80;
+    server_name musictechserver;
+    root /usr/share/nginx/html;
+    index index.html;
+
+    location / {
+        try_files $uri$args $uri$args/ /index.html;
+    }
+
+    location /api {
+        proxy_pass http://server:8080/;
+    }
+}
+
+
+

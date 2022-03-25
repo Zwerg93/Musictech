@@ -65,7 +65,7 @@ export class RegisterComponent implements OnInit {
         username: this.username
       };
 
-      this.http.post('http://localhost:8080/user', data).subscribe(
+      this.http.post('/api/user', data).subscribe(
         result => {
         },
         error => {

@@ -30,7 +30,7 @@ services:
     #command: bash -c 'do sleep 1; done;'
     depends_on:
       - postgresdb
-      -
+      
     #command: ["./wait-for-postgres.sh", "db", "python", "app.py"]
 
     networks:
@@ -42,13 +42,16 @@ services:
   client:
     build: client/musictech-client/
     image: musictechclient
-
+   
+                   
     ports:
       - 4200:80
     expose:
       - 4200
     volumes:
-      - pgadmindata:/var/lib/client
+      # - pgadmindata:/var/lib/client
+
+      - ./default:/etc/nginx/sites-available/default
     depends_on:
       - server
     networks:
