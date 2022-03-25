@@ -51,7 +51,7 @@ services:
     volumes:
       # - pgadmindata:/var/lib/client
 
-      - ./default:/etc/nginx/sites-available/default
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - server
     networks:
