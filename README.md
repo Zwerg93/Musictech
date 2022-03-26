@@ -3,14 +3,8 @@
 This is a simple website to stream your own music
 My goal is to make a application which you can clone and run localy on your own server. Its like a Nextcloud for mp3 or Music files
 
-!!! You have to install your own database and config it in the Application properties in the Server folder!!!
+First release! I dockerised everything, and you can execute everything with "docker-compose up" in the musictech folder. The Docker-compose file will create the server, client and the Postgres image to start everything up- The application will run on localhost:4200 
 
-right now you have to install Angular and type 'ng serve --host 0.0.0.0' 
-
-to execute the server, you have to type 'mvn quarkus:dev'
-!!! you have to config maven home and have to install java 17, and set java home"!!!
-
-when i release the first version, everything will work with docker and run native on your linux device
 
 # about
 
