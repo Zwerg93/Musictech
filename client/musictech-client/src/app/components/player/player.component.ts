@@ -151,7 +151,7 @@ export class PlayerComponent {
   getPlaylists() {
     if (sessionStorage.getItem('username') != null) {
 
-      this.http.get('http://server8080/user/getPlalist/' + sessionStorage.getItem('username')).toPromise().then((response: any) => {
+      this.http.get('/api/user/getPlalist/' + sessionStorage.getItem('username')).toPromise().then((response: any) => {
         this.itemList = response;
 
         console.table(this.itemList);
@@ -194,7 +194,7 @@ export class PlayerComponent {
 
   asyncaddTofav(currentFile: any){
 
-    this.http.post('http://server.38080/user/add/' + this.user.id + '/' + currentFile.file.id + '', null).subscribe(
+    this.http.post('/api/user/add/' + this.user.id + '/' + currentFile.file.id + '', null).subscribe(
       result => {
       },
       error => {
