@@ -41,17 +41,22 @@
   <div class="container">
 
     <div class="content text-black">
-
       <mat-list color="primary">
         <h3 mat-subheader>Songs</h3>
         <mat-list-item *ngFor="let file of files; let i = index" (click)="openFile(file, i)">
-          <mat-icon color="primary" mat-list-icon>music_note</mat-icon>
-          <h4 mat-line class="text-dark overflow-auto ">{{ file.name }}</h4>
-          <h5 mat-line class="text-dark">by {{ file.artist }}</h5>
-          <mat-icon color="primary" *ngIf="currentFile.index === i && !state?.error">volume_up</mat-icon>
-          <h6 *ngIf="currentFile.index === i && state?.error">ERROR</h6>
 
-          <mat-divider></mat-divider>
+          <mat-list-item (click)="currentSongClickedon(i)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+
+            <mat-icon color="primary" mat-list-icon>music_note</mat-icon>
+            <h4 mat-line class="text-dark overflow-auto ">{{ file.name }}</h4>
+            <h5 mat-line class="text-dark">by {{ file.artist }}</h5>
+
+            <h6 *ngIf="currentFile.index === i && state?.error">ERROR</h6>
+
+            <mat-divider></mat-divider>
+
+          </mat-list-item>
+          >
         </mat-list-item>
 
       </mat-list>
@@ -64,47 +69,46 @@
     <div class="media-footer position-fixed bottom-0 w-100 ">
       <div class="bg-dark text-center w-100 ">
 
-        <div class="row text-light ">
-
-          <mat-slider class="w-50 col time-slider text-light" min="0" [max]="state?.duration" step="1"
+        <div class="row w-75  text-light ">
+          <mat-slider class="align-items-center col time-slider text-light" min="0" [max]="state?.duration" step="1"
                       [value]="state?.currentTime"
                       (input)="onSliderChangeEnd($event)"></mat-slider>
+        </div>
 
-        </div>
-        <div class="row text-light">
-          <div class="col h6 text-light mt-2"> {{ state?.readableCurrentTime }}</div>
-          <div class="col h6 text-light mt-2 mx5">{{ state?.readableDuration }}</div>
-        </div>
 
         <div class="">
           <div class="media-action-bar bg-dark pb-3 text-center">
-            <button mat-button (click)="test = true; autoplayfunc(test)">
-              <i (click)="addToFavourits(currentFile)" class="text-primary bi bi-heart"></i>
-
-            </button>
-            <button mat-button [disabled]="isFirstPlaying()" (click)="previous()">
-              <mat-icon class="text-primary" mat-list-icon>skip_previous</mat-icon>
-            </button>
-
-
             <button mat-button (click)="play()" [disabled]="state?.error" *ngIf="!state?.playing">
               <mat-icon class="text-primary" mat-list-icon>play_circle_filled</mat-icon>
             </button>
             <button mat-button (click)="pause()" *ngIf="state?.playing">
-              <mat-icon class="text-primary" mat-list-icon>pause</mat-icon  >
+              <mat-icon class="text-primary" mat-list-icon>pause</mat-icon>
             </button>
-            <button mat-button [disabled]="isLastPlaying()" (click)="next()">
-              <mat-icon class="text-primary" mat-list-icon>skip_next</mat-icon>
-            </button>
-            <button mat-button (click)="random()">
-              <i class="bi bi-shuffle text-primary"></i>
-            </button>
-          </div>
-          <div class="">
-            <input class="" type="range" id="volume-control">
           </div>
         </div>
+      </div>
+    </div>
+  </div>
 
+
+  <!-- Modal -->
+  <div class="modal  fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+       aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <mat-button-toggle (click)="getNameOfCurrentSOng();">Current playing</mat-button-toggle>
+
+
+        </div>
+        <div class=" modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+        </div>
       </div>
     </div>
   </div>
@@ -112,9 +116,16 @@
 
   <script>
     var volume = document.querySelector("#volume-control");
-    volume.addEventListener("change", function(e) {
-    this.currentFile.volume = e.currentTarget.value / 100;
+    volume.addEventListener("change", function (e) {
+      this.currentFile.volume = e.currentTarget.value / 100;
     });
+
+    var myModal = document.getElementById('myModal')
+    var myInput = document.getElementById('myInput')
+
+    myModal.addEventListener('shown.bs.modal', function () {
+      myInput.focus()
+    })
 
   </script>
 

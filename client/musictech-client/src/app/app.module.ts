@@ -22,6 +22,7 @@ import {MatSliderModule} from "@angular/material/slider";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import { RegisterComponent } from './components/register/register.component';
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 
 @NgModule({
@@ -36,24 +37,25 @@ import { RegisterComponent } from './components/register/register.component';
     SearchComponent,
     RegisterComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbPaginationModule,
-    NgbAlertModule,
-    BrowserAnimationsModule,
-    MatListModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
-    MaterialModule,
-    MatListModule,
-    MatSliderModule,
-    HttpClientModule,
-    FormsModule
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgbPaginationModule,
+        NgbAlertModule,
+        BrowserAnimationsModule,
+        MatListModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatIconModule,
+        MatMenuModule,
+        MaterialModule,
+        MatListModule,
+        MatSliderModule,
+        HttpClientModule,
+        FormsModule,
+        MatButtonToggleModule
 
-  ],
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

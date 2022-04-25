@@ -1,0 +1,60 @@
+<div class="row text-light">
+          <div class="col h6 text-light mt-2"> {{ state?.readableCurrentTime }}</div>
+          <div class="col h6 text-light mt-2 mx5">{{ state?.readableDuration }}</div>
+</div>
+
+Current time of slider (Song)
+
+<mat-slider class="w-50 col time-slider text-light" min="0" [max]="state?.duration" step="1"
+                      [value]="state?.currentTime"
+                      (input)="onSliderChangeEnd($event)"></mat-slider>
+
+slider
+
+  <button mat-button>
+              <i (click)="addToFavourits(currentFile)" class="text-primary bi bi-heart"></i>
+Favourites
+
+
+<button mat-button [disabled]="isFirstPlaying()" (click)="previous()">
+              <mat-icon class="text-primary" mat-list-icon>skip_previous</mat-icon>
+            </button>
+
+
+previous song
+
+<button mat-button (click)="play()" [disabled]="state?.error" *ngIf="!state?.playing">
+              <mat-icon class="text-primary" mat-list-icon>play_circle_filled</mat-icon>
+            </button>
+Play
+
+<button mat-button (click)="pause()" *ngIf="state?.playing">
+              <mat-icon class="text-primary" mat-list-icon>pause</mat-icon>
+            </button>
+Pause
+
+ <button mat-button [disabled]="isLastPlaying()" (click)="next()">
+              <mat-icon class="text-primary" mat-list-icon>skip_next</mat-icon>
+            </button>
+next
+
+ <button mat-button (click)="random()">
+              <i class="bi bi-shuffle text-primary"></i>
+            </button>
+random song
+
+ <div class="">
+            <input class="" type="range" id="volume-control">
+          </div>
+
+ volumne (not working)
+
+
+
+
+
+
+
+
+
+

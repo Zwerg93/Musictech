@@ -21,6 +21,10 @@ export class PlayerComponent {
   user: any;
   cloudService: CloudService;
   searchstring: String;
+  currentSongName: String;
+  currentSongURL: String;
+  currentArtist: String;
+
 
   /*
     @HostListener('window:keyup', ['$event'])
@@ -72,6 +76,8 @@ export class PlayerComponent {
       });
   }
 
+
+
   playStream(url) {
     this.audioService.playStream(url)
       .subscribe(events => {
@@ -121,6 +127,11 @@ export class PlayerComponent {
     return this.currentFile.index === 0;
   }
 
+  getNameOfCurrentSOng(){
+    console.log();
+    return this.audioService.getState();
+  }
+
   isLastPlaying() {
     return this.currentFile.index === this.files.length - 1;
   }
@@ -160,6 +171,11 @@ export class PlayerComponent {
       })
     }
   }
+  currentSongClickedon(i) {
+    console.log( this.files[i].name);
+    this.currentSongName = this.files[i].name;
+    this.currentArtist = this.files[i].artist;
+  }
 
 
   getSongsFromPlalist(id: number) {
@@ -167,6 +183,7 @@ export class PlayerComponent {
     console.log(id + "id ")
     console.table(this.itemList[id].songList)
     this.files = this.itemList[id].songList;
+
 
   }
 
@@ -214,6 +231,7 @@ export class PlayerComponent {
       }
     );
   }
+
 
 }
 
