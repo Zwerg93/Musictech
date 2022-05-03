@@ -11,6 +11,7 @@ import java.util.List;
 @ApplicationScoped
 public class SongRepo implements PanacheRepository<Song> {
 
+
     private final EntityManager entityManager;
 
     public SongRepo(EntityManager entityManager) {
@@ -33,18 +34,7 @@ public class SongRepo implements PanacheRepository<Song> {
                 .findFirst().orElse(null);
     }
 
-    /*
 
-        public List<Song> getbyId(Long id) {
-            TypedQuery<Song> query = this.entityManager
-                    .createQuery("select p from Song p where p.id = :(id)",
-                            Song.class)
-                    .setParameter("id" = id);
-            return query.getResultList();
-        }
-
-
-     */
     public void addSong(Song song) {
         this.entityManager.persist(song);
     }

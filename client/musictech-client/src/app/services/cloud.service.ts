@@ -35,17 +35,18 @@ export class CloudService {
   }
 
   public itemList: { url: string, name: string, artist: string }[] = [];
-
+  ///api/song/all
   onload() {
-      this.http.get('/api/song/all').toPromise().then((response: any) => {
+    ///api/song/all
+      this.http.get('http://localhost:8080/song/all').toPromise().then((response: any) => {
       this.itemList = response;
       console.table(this.itemList);
     });
   }
 
   getFiles() {
-    //return of(this.itemList);
-    return of(this.files);
+    return of(this.itemList);
+    //return of(this.files);
 
   }
 

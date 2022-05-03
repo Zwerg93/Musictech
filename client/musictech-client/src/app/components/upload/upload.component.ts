@@ -28,8 +28,8 @@ export class UploadComponent implements OnInit {
     const fd = new FormData();
 
     fd.append('uploadedFile', this.selectetFile, output);
-
-    this.http.post('/api/uploadFile/upload', fd).subscribe(
+  ///api/uploadFile/upload
+    this.http.post('http://localhost:8080/uploadFile/upload', fd).subscribe(
       result => {
       },
       error => {

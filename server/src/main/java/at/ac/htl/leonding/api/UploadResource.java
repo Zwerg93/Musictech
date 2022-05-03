@@ -5,7 +5,6 @@ import at.ac.htl.leonding.workloads.song.SongRepo;
 import org.apache.commons.io.IOUtils;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
-
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
@@ -25,8 +24,9 @@ public class UploadResource {
     @Inject
     SongRepo repo;
 
-     private final String UPLOADED_FILE_PATH = "/home/";
+    //private final String UPLOADED_FILE_PATH = "/home/";
     //private final String UPLOADED_FILE_PATH = "C:\Schule\4BHITM\sew\musictech\files";
+    private final String UPLOADED_FILE_PATH = "/home/marcel/musictech/files/";
 
     private String postURL = "";
 
@@ -48,6 +48,7 @@ public class UploadResource {
 
             try {
 
+
                 MultivaluedMap<String, String> header = inputPart.getHeaders();
                 fileName = getFileName(header);
                 artist = getArtist(header);
@@ -55,8 +56,9 @@ public class UploadResource {
                 System.out.println(artist);
                 InputStream inputStream = inputPart.getBody(InputStream.class, null);
                 System.out.println(fileName);
-                ;
-                postURL = "/api/uploadFile/download/" + fileName;
+
+                //postURL = "/api/uploadFile/download/" + fileName;
+                postURL = "http://localhost:8080/uploadFile/download/" + fileName;
                 System.out.println(postURL);
 
                 Song song = new Song(fileName, postURL);
