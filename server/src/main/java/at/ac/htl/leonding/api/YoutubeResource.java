@@ -2,7 +2,6 @@ package at.ac.htl.leonding.api;
 
 import at.ac.htl.leonding.workloads.song.Song;
 import at.ac.htl.leonding.workloads.song.SongRepo;
-import at.ac.htl.leonding.youtubeAPI.DownloadAPI;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -13,7 +12,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
@@ -24,6 +22,7 @@ import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 
 @Produces("application/json")
 @Path("youtube")
@@ -46,13 +45,13 @@ public class YoutubeResource {
 
     @GET
     @Path("/download/{searchstring}")
-    public Response getAllSongs(@PathParam("searchstring") String searchstring) throws GeneralSecurityException, IOException {
-        DownloadAPI downloadAPI = new DownloadAPI();
-        getYoutubeVideoIdsByString(searchstring);
-        return Response.ok().build();
+    public ArrayList<SearchListResponse> getAllSongs(@PathParam("searchstring") String searchstring) throws GeneralSecurityException, IOException {
+        //DownloadAPI downloadAPI = new DownloadAPI();
+
+        return getYoutubeVideoIdsByString(searchstring);
     }
 
-    public void getYoutubeVideoIdsByString(String searchstring) throws GeneralSecurityException, IOException {
+    public ArrayList<SearchListResponse> getYoutubeVideoIdsByString(String searchstring) throws GeneralSecurityException, IOException {
         YouTube youtubeService = getService();
         // Define and execute the API request
         YouTube.Search.List request = youtubeService.search()
@@ -62,23 +61,30 @@ public class YoutubeResource {
                 .setQ(searchstring)
                 .execute();
 
+        ArrayList<SearchListResponse> responselist = new ArrayList<>();
 
         System.out.println(response);
 
         for (int i = 0; i < response.size() - 1; i++) {
             System.out.println(response.getItems().get(i).getId().get("kind"));
             if (response.getItems().get(i).getId().get("kind").equals("youtube#video")) {
-                download((String) response.getItems().get(i).getId().get("videoId"), (String) response.getItems().get(i).getSnippet().get("title"));
+                System.out.println((String) response.getItems().get(i).getId().get("videoId"));
+                responselist.add(response);
+                //download((String) response.getItems().get(i).getId().get("videoId"), (String) response.getItems().get(i).getSnippet().get("title"));
             } else {
                 System.out.println("you cant download a Youtube Channel :)");
+
             }
             //System.out.println();
         }
 
+        return responselist;
     }
 
+    @GET
     @Transactional
-    public void download(String id, String title) {
+    @Path("/download/mp3/{id}/{title}")
+    public Response downloadSongByYTID(@PathParam("id") String id, @PathParam("title") String title) {
         StringBuffer sbf1 = new StringBuffer();
         final HttpClient httpClient = new DefaultHttpClient();
         final HttpGet httpGet = new HttpGet("https://api.vevioz.com/api/button/mp3/" + id);
@@ -101,11 +107,8 @@ public class YoutubeResource {
             } catch (IOException ex) {
                 System.out.println("error " + ex);
             }
-
             sbf1.append(line);
-
         }
-
         URL website = null;
         try {
             website = new URL(sbf1.substring(sbf1.indexOf(id) - 35, sbf1.indexOf(id) + 97));
@@ -120,29 +123,26 @@ public class YoutubeResource {
         }
         FileOutputStream fos = null;
         try {
-            fos = new FileOutputStream("/home/marcel/musictech/files/" + title + ".mp3");
+            fos = new FileOutputStream("/home/marcel/musictech/files/" + title + ".mp3"); // be carefull when Publish
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         try {
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-
             // postURL = "/api/uploadFile/download/" + title;
             postURL = "http://localhost:8080/uploadFile/download/" + title + ".mp3";
-
             System.out.println(postURL);
             Song song = new Song(title, postURL);
-
             repo.addSong(song);
-
             System.out.println(song);
-
-            //repo.addSong(song);
             System.out.println("Donwload succes " + title);
-            //  return song;
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        return Response.ok().build();
+    }
+
+    public void download(String id, String title) {
     }
 }

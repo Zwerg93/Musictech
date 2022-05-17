@@ -68,6 +68,7 @@ export class AudioService {
   }
 
 
+
   play() {
     this.audioObj.play();
   }
@@ -140,7 +141,11 @@ export class AudioService {
     };
   }
 
+
+
   getState(): Observable<StreamState> {
     return this.stateChange.asObservable();
   }
 }
+
+

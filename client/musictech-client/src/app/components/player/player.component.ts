@@ -58,10 +58,34 @@ export class PlayerComponent {
 
    */
   private errors: any;
-
+  toggle = true;
+  status = 'Enable';
+  private tmp: boolean = true;
 
   constructor(private audioService: AudioService, cloudService: CloudService, private http: HttpClient) {
     cloudService.onload();
+    var i = 1;                  //  set your counter to 1
+    var tmp = true;
+
+    function myLoop() {         //  create a loop function
+      setTimeout(function () {   //  call a 3s setTimeout when the loop is called
+        console.log('hello');   //  your code here
+        i++;
+        if (audioService.audioObj.currentTime >= audioService.audioObj.duration - 1) {
+          console.log("succes")
+          console.log();
+
+        }
+
+        //  increment the counter
+        //if (i < 10) {           //  if the counter < 10, call the loop function
+        myLoop();             //  ..  again which will trigger another
+        // }                       //  ..  setTimeout()
+      }, 500)
+    }
+
+    myLoop();
+
     timer(400).subscribe(x => {
       this.getPlaylists()
       cloudService.getFiles().subscribe(files => {
@@ -75,7 +99,6 @@ export class PlayerComponent {
         this.state = state;
       });
   }
-
 
 
   playStream(url) {
@@ -100,6 +123,31 @@ export class PlayerComponent {
     this.isplaying = true;
   }
 
+  shuffle(array) {
+    if (this.tmp) {
+      this.tmp = false
+      let currentIndex = array.length, randomIndex;
+      while (currentIndex != 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [array[currentIndex], array[randomIndex]] = [
+          array[randomIndex], array[currentIndex]];
+      }
+    } else {
+      this.files = this.tmpFiles;
+      this.tmp = true;
+      console.log("test")
+    }
+
+    this.toggle = !this.toggle;
+    this.status = this.toggle ? 'Enable' : 'Disable';
+
+    //console.log(array);
+  }
+
+// Used like so
+
+
   random() {
     const index = this.randomIntFromInterval(0, this.files.length - 1);
     const file = this.files[index];
@@ -111,10 +159,12 @@ export class PlayerComponent {
     this.audioService.stop();
   }
 
+
   next() {
     const index = this.currentFile.index + 1;
     const file = this.files[index];
     this.openFile(file, index);
+    this.audioService.audioObj.currentTime;
   }
 
   previous() {
@@ -127,7 +177,7 @@ export class PlayerComponent {
     return this.currentFile.index === 0;
   }
 
-  getNameOfCurrentSOng(){
+  getNameOfCurrentSOng() {
     console.log();
     return this.audioService.getState();
   }
@@ -148,11 +198,12 @@ export class PlayerComponent {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
 
-  myMethod(event: any) {
+  searchForString(event: any) {
     this.files = this.tmpFiles.filter((file: { name: string }) => {
       return file.name.toLowerCase().includes(this.searchstring.toLowerCase());
     })
   }
+
 
   cancelSearch() {
     this.files = this.tmpFiles;
@@ -171,8 +222,10 @@ export class PlayerComponent {
       })
     }
   }
+
   currentSongClickedon(i) {
-    console.log( this.files[i].name);
+    console.log(this.files[i].name);
+
     this.currentSongName = this.files[i].name;
     this.currentArtist = this.files[i].artist;
   }
@@ -192,7 +245,7 @@ export class PlayerComponent {
     this.files = this.tmpFiles;
   }
 
-   addToFavourits(currentFile: any) {
+  addToFavourits(currentFile: any) {
     if (sessionStorage.getItem('username') != null) {
       console.log(sessionStorage.getItem('username'))
       this.http.get('/api/user/getuser/' + sessionStorage.getItem('username')).toPromise().then((response: any) => {
@@ -209,7 +262,7 @@ export class PlayerComponent {
     console.log(currentFile.file.id)
   }
 
-  asyncaddTofav(currentFile: any){
+  asyncaddTofav(currentFile: any) {
 
     this.http.post('/api/user/add/' + this.user.id + '/' + currentFile.file.id + '', null).subscribe(
       result => {
@@ -234,6 +287,7 @@ export class PlayerComponent {
 
 
 }
+
 
 export enum KEY_CODE {
   UP_ARROW = 38,

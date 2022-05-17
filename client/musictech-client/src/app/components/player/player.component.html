@@ -14,7 +14,7 @@
   <div class="container position-sticky my-1 top-0">
     <form class="d-flex">
       <input [(ngModel)]="searchstring" #ctrl="ngModel" id="searchinput" class="form-control bg-dark text-light me-2"
-             placeholder="Search" aria-label="Search" type="search" (keyup)="myMethod($event)"
+             placeholder="Search" aria-label="Search" type="search" (keyup)="searchForString($event)"
              [ngModelOptions]="{standalone: true}"/>
       <button (click)="cancelSearch();" class="btn bg-primary" type="submit">Cancel</button>
     </form>
@@ -56,7 +56,7 @@
             <mat-divider></mat-divider>
 
           </mat-list-item>
-          >
+
         </mat-list-item>
 
       </mat-list>
@@ -69,7 +69,7 @@
     <div class="media-footer position-fixed bottom-0 w-100 ">
       <div class="bg-dark text-center w-100 ">
 
-        <div class="row w-75  text-light ">
+        <div class="w-75  text-light justify-content-center ">
           <mat-slider class="align-items-center col time-slider text-light" min="0" [max]="state?.duration" step="1"
                       [value]="state?.currentTime"
                       (input)="onSliderChangeEnd($event)"></mat-slider>
@@ -92,19 +92,69 @@
 
 
   <!-- Modal -->
-  <div class="modal  fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  <div class="modal bg-secondary  fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+       tabindex="-1"
        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
+    <div class="modal-dialog ">
+      <div class="modal-content bg-black">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+          <h5 class="modal-title text-light" id="staticBackdropLabel">{{currentSongName}}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          <mat-button-toggle (click)="getNameOfCurrentSOng();">Current playing</mat-button-toggle>
+        <div class=" modal-body h-100">
+
+          <div class="h-75 text-black">
+
+          </div>
+
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+
+          <div class=" ">
+            <div class="text-light d-flex w-100 justify-content-between text-primary">
+              <div class=" h6 text-primary mt-1"> {{ state?.readableCurrentTime }}</div>
+              <div class="h6 text-primary mt-1  ">{{ state?.readableDuration }}</div>
+            </div>
+
+            <div class="w-100 d-flex justify-content-center">
+              <mat-slider class="w-50 col time-slider text-light" min="0" [max]="state?.duration" step="1"
+                          [value]="state?.currentTime"
+                          (input)="onSliderChangeEnd($event)"></mat-slider>
+            </div>
+          </div>
 
 
+          <div class="d-flex justify-content-center">
+            <button mat-button [disabled]="isFirstPlaying()" (click)="previous()">
+              <mat-icon class="text-primary" mat-list-icon>skip_previous</mat-icon>
+            </button>
+            <button mat-button (click)="play()" [disabled]="state?.error" *ngIf="!state?.playing">
+              <mat-icon class="text-primary" mat-list-icon>play_circle_filled</mat-icon>
+            </button>
+            <button mat-button (click)="pause()" *ngIf="state?.playing">
+              <mat-icon class="text-primary" mat-list-icon>pause</mat-icon>
+            </button>
+            <button mat-button [disabled]="isLastPlaying()" (click)="next()">
+              <mat-icon class="text-primary" mat-list-icon>skip_next</mat-icon>
+            </button>
+            <button id="shuffleButton" mat-button (click)="shuffle(this.files)"[ngClass]=" {'green' : toggle, 'red': !toggle}">
+              <i class="bi bi-shuffle text-primary"></i>
+            </button>
+
+
+          </div>
         </div>
+
         <div class=" modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
