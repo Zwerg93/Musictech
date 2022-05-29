@@ -5,14 +5,12 @@
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <script src="test.js"></script>
+  <title>Search</title>
+
 </head>
-<body>
-<script src="https://apis.google.com/js/api.js"></script>
+<body class="bg-dark">
 
-
-<div class="container position-sticky my-1 top-0">
+<div class="container position-sticky   ">
   <form class="d-flex">
     <input id="input" class="form-control bg-dark text-light me-2"
            placeholder="Search" aria-label="Search" type="search"/>
@@ -20,20 +18,19 @@
   </form>
 </div>
 
-<div class="container d-flex justify-content-center">
+<div class="container text-light py-2 my-2 bg-dark ">
   <ul>
-    <div class=" bg-dark text-center w-50 " *ngIf="this.itemList != null">
-      <li class="text-light" *ngFor="let item of this.itemList.items; let i = index">
-        {{ i + 1 }} : {{ item.snippet.title }}
-        {{ i + 1 }} : {{ item.id.videoId }}
-        <div class="d-flex flex-row justify-content-center">
-          <i (click)="download(item.id.videoId, item.snippet.title)" class="text-primary bi p-2 bi-download"></i>
+    <div class="" *ngIf="this.itemList != null">
+      <li class="" *ngFor="let item of this.itemList.items; let i = index">
+        {{ i + 1 }} : {{ item.snippet.title }} <br> <br>
+        <div class="d-flex flex-row justify-content-around">
+          <p>Video ID:  {{ item.id.videoId }}</p>
+          <i (click)="download(item.id.videoId, item.snippet.title)" class="text-primary bi-download"></i>
         </div>
       </li>
     </div>
   </ul>
 </div>
-
 
 
 

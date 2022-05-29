@@ -4,7 +4,6 @@ import {CloudService} from '../../services/cloud.service';
 import {timer} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 
-
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html',
@@ -67,24 +66,11 @@ export class PlayerComponent {
     var i = 1;                  //  set your counter to 1
     var tmp = true;
 
-    function myLoop() {         //  create a loop function
-      setTimeout(function () {   //  call a 3s setTimeout when the loop is called
-        console.log('hello');   //  your code here
-        i++;
-        if (audioService.audioObj.currentTime >= audioService.audioObj.duration - 1) {
-          console.log("succes")
-          console.log();
 
-        }
 
-        //  increment the counter
-        //if (i < 10) {           //  if the counter < 10, call the loop function
-        myLoop();             //  ..  again which will trigger another
-        // }                       //  ..  setTimeout()
-      }, 500)
-    }
 
-    myLoop();
+
+ //   myLoop();
 
     timer(400).subscribe(x => {
       this.getPlaylists()
@@ -99,6 +85,18 @@ export class PlayerComponent {
         this.state = state;
       });
   }
+
+  ngOnInit(): void {
+    function myLoop() {//  create a loop function
+      setTimeout(function () {
+        myLoop();
+      }, 500)
+      console.log("test")
+
+    }
+    myLoop();
+  }
+
 
 
   playStream(url) {
@@ -132,6 +130,7 @@ export class PlayerComponent {
         currentIndex--;
         [array[currentIndex], array[randomIndex]] = [
           array[randomIndex], array[currentIndex]];
+
       }
     } else {
       this.files = this.tmpFiles;

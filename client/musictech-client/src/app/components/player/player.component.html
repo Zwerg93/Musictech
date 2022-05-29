@@ -67,16 +67,16 @@
   <!-- navigation tool-->
   <div class="m-0 p-0">
     <div class="media-footer position-fixed bottom-0 w-100 ">
-      <div class="bg-dark text-center w-100 ">
+      <div class="bg-dark w-100">
 
-        <div class="w-75  text-light justify-content-center ">
+        <div class=" container d-flex justify-content-center ">
           <mat-slider class="align-items-center col time-slider text-light" min="0" [max]="state?.duration" step="1"
                       [value]="state?.currentTime"
                       (input)="onSliderChangeEnd($event)"></mat-slider>
         </div>
 
 
-        <div class="">
+        <div class="d-flex justify-content-center">
           <div class="media-action-bar bg-dark pb-3 text-center">
             <button mat-button (click)="play()" [disabled]="state?.error" *ngIf="!state?.playing">
               <mat-icon class="text-primary" mat-list-icon>play_circle_filled</mat-icon>
@@ -119,6 +119,9 @@
           <p>test</p>
           <p>test</p>
           <p>test</p>
+          <p>test</p>
+          <p>test</p>
+
 
           <div class=" ">
             <div class="text-light d-flex w-100 justify-content-between text-primary">
@@ -163,7 +166,7 @@
     </div>
   </div>
 
-
+  <script src="./script.js"></script>
   <script>
     var volume = document.querySelector("#volume-control");
     volume.addEventListener("change", function (e) {
