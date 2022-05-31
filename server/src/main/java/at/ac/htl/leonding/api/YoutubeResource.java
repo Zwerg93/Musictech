@@ -30,7 +30,6 @@ import java.util.ArrayList;
 public class YoutubeResource {
     private String postURL = "";
     private static final String DEVELOPER_KEY = "AIzaSyDDd_3IHYSGqMpzuybFRnirJrVeRIl4i5Y";
-
     private static final String APPLICATION_NAME = "API code samples";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     @Inject
@@ -85,9 +84,9 @@ public class YoutubeResource {
     @Transactional
     @Path("/download/mp3/{id}/{title}")
     public Response downloadSongByYTID(@PathParam("id") String id, @PathParam("title") String title) {
-        StringBuffer sbf1 = new StringBuffer();
-        final HttpClient httpClient = new DefaultHttpClient();
-        final HttpGet httpGet = new HttpGet("https://api.vevioz.com/api/button/mp3/" + id);
+        StringBuilder sbf1 = new StringBuilder();
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpGet httpGet = new HttpGet("https://api.vevioz.com/api/button/mp3/" + id);
         HttpResponse response = null;
         try {
             response = httpClient.execute(httpGet);
@@ -123,14 +122,15 @@ public class YoutubeResource {
         }
         FileOutputStream fos = null;
         try {
-            fos = new FileOutputStream("/home/marcel/musictech/files/" + title + ".mp3"); // be carefull when Publish
+            ///home/marcel/musictech/files/
+            fos = new FileOutputStream("~/files" + title + ".mp3"); // be carefull when Publish
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         try {
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-            // postURL = "/api/uploadFile/download/" + title;
-            postURL = "http://localhost:8080/uploadFile/download/" + title + ".mp3";
+            postURL = "/api/uploadFile/download/" + title + ".mp3";
+            // postURL = "http://localhost:8080/uploadFile/download/" + title + ".mp3";
             System.out.println(postURL);
             Song song = new Song(title, postURL);
             repo.addSong(song);

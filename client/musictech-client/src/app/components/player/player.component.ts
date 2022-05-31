@@ -21,7 +21,6 @@ export class PlayerComponent {
   cloudService: CloudService;
   searchstring: String;
   currentSongName: String;
-  currentSongURL: String;
   currentArtist: String;
 
 
@@ -52,10 +51,8 @@ export class PlayerComponent {
         }
       }
     }
-
-
-
    */
+
   private errors: any;
   toggle = true;
   status = 'Enable';
@@ -63,14 +60,6 @@ export class PlayerComponent {
 
   constructor(private audioService: AudioService, cloudService: CloudService, private http: HttpClient) {
     cloudService.onload();
-    var i = 1;                  //  set your counter to 1
-    var tmp = true;
-
-
-
-
-
- //   myLoop();
 
     timer(400).subscribe(x => {
       this.getPlaylists()
@@ -85,6 +74,8 @@ export class PlayerComponent {
         this.state = state;
       });
   }
+/*
+
 
   ngOnInit(): void {
     function myLoop() {//  create a loop function
@@ -92,11 +83,10 @@ export class PlayerComponent {
         myLoop();
       }, 500)
       console.log("test")
-
     }
     myLoop();
   }
-
+*/
 
 
   playStream(url) {
@@ -135,34 +125,28 @@ export class PlayerComponent {
     } else {
       this.files = this.tmpFiles;
       this.tmp = true;
-      console.log("test")
+      //console.log("test")
     }
-
     this.toggle = !this.toggle;
     this.status = this.toggle ? 'Enable' : 'Disable';
-
-    //console.log(array);
   }
-
-// Used like so
-
 
   random() {
     const index = this.randomIntFromInterval(0, this.files.length - 1);
     const file = this.files[index];
     this.openFile(file, index);
-    console.log(index);
+    //console.log(index);
   }
 
   stop() {
     this.audioService.stop();
   }
 
-
   next() {
     const index = this.currentFile.index + 1;
     const file = this.files[index];
     this.openFile(file, index);
+    this.currentSongName = this.currentFile.file.name;
     this.audioService.audioObj.currentTime;
   }
 
@@ -177,7 +161,7 @@ export class PlayerComponent {
   }
 
   getNameOfCurrentSOng() {
-    console.log();
+    //console.log();
     return this.audioService.getState();
   }
 
@@ -203,7 +187,6 @@ export class PlayerComponent {
     })
   }
 
-
   cancelSearch() {
     this.files = this.tmpFiles;
     (<HTMLInputElement>document.getElementById("searchinput")).value = '';
@@ -211,20 +194,18 @@ export class PlayerComponent {
 
   getPlaylists() {
     if (sessionStorage.getItem('username') != null) {
-
+// /api/user/getPlalist/
+      //http://localhost:8080/
       this.http.get('/api/user/getPlalist/' + sessionStorage.getItem('username')).toPromise().then((response: any) => {
         this.itemList = response;
-
-        console.table(this.itemList);
-
+        //console.table(this.itemList + "testasd");
         //  this.files = this.itemList[0].songList;
       })
     }
   }
 
   currentSongClickedon(i) {
-    console.log(this.files[i].name);
-
+    //console.log(this.files[i].name);
     this.currentSongName = this.files[i].name;
     this.currentArtist = this.files[i].artist;
   }
@@ -232,11 +213,9 @@ export class PlayerComponent {
 
   getSongsFromPlalist(id: number) {
     //console.log(name -1);
-    console.log(id + "id ")
-    console.table(this.itemList[id].songList)
+    //console.log(id + "id ")
+    //console.table(this.itemList[id].songList)
     this.files = this.itemList[id].songList;
-
-
   }
 
 
@@ -246,24 +225,24 @@ export class PlayerComponent {
 
   addToFavourits(currentFile: any) {
     if (sessionStorage.getItem('username') != null) {
-      console.log(sessionStorage.getItem('username'))
+      //console.log(sessionStorage.getItem('username'))
+      // /api/user/getuser/
+
       this.http.get('/api/user/getuser/' + sessionStorage.getItem('username')).toPromise().then((response: any) => {
         this.user = response;
         this.asyncaddTofav(currentFile);
-        console.log(this.user.id + "Userid");
-
+        //console.log(this.user.playlistList[0].id + " Playlistid");
       })
-
-
     } else {
       console.log("not logged in")
     }
-    console.log(currentFile.file.id)
+    //console.log(currentFile.file.id)
   }
 
   asyncaddTofav(currentFile: any) {
-
-    this.http.post('/api/user/add/' + this.user.id + '/' + currentFile.file.id + '', null).subscribe(
+    /// api/user/add/
+    //http://localhost:8080
+    this.http.post('/api/user/add/' + this.user.playlistList[0].id + '/' + currentFile.file.id + '', null).subscribe(
       result => {
       },
       error => {
@@ -280,11 +259,11 @@ export class PlayerComponent {
           "<p>Succes!</p>" +
           "    </div>\n" +
           "  </fieldset>"
+
+        this.cloudService.onload();
       }
     );
   }
-
-
 }
 
 

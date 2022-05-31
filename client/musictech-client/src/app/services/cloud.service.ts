@@ -38,7 +38,8 @@ export class CloudService {
   ///api/song/all
   onload() {
     ///api/song/all
-    this.http.get('http://localhost:8080/song/all').toPromise().then((response: any) => {
+    //http://localhost:8080/song/all
+    this.http.get('/api/song/all').toPromise().then((response: any) => {
       this.itemList = response;
       console.table(this.itemList);
     });

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,7 +21,6 @@
   </div>
 
   <div id="showresult">
-
   </div>
   <!-- Wiedergabelisten -->
 
@@ -30,52 +29,37 @@
       <div class="col" *ngFor="let element of itemList; let i = index">
         <p type="button" (click)="getSongsFromPlalist(i)"> {{ itemList[i].name }}</p>
       </div>
-
     </div>
     <p type="button" (click)="allSongs()"> All Songs</p>
-
   </div>
 
 
   <!-- Player and songs-->
   <div class="container">
-
     <div class="content text-black">
       <mat-list color="primary">
         <h3 mat-subheader>Songs</h3>
         <mat-list-item *ngFor="let file of files; let i = index" (click)="openFile(file, i)">
-
           <mat-list-item (click)="currentSongClickedon(i)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-
             <mat-icon color="primary" mat-list-icon>music_note</mat-icon>
             <h4 mat-line class="text-dark overflow-auto ">{{ file.name }}</h4>
             <h5 mat-line class="text-dark">by {{ file.artist }}</h5>
-
             <h6 *ngIf="currentFile.index === i && state?.error">ERROR</h6>
-
             <mat-divider></mat-divider>
-
           </mat-list-item>
-
         </mat-list-item>
-
       </mat-list>
     </div>
-
-
   </div>
   <!-- navigation tool-->
-  <div class="m-0 p-0">
+  <div class="playerFooter">
     <div class="media-footer position-fixed bottom-0 w-100 ">
       <div class="bg-dark w-100">
-
         <div class=" container d-flex justify-content-center ">
           <mat-slider class="align-items-center col time-slider text-light" min="0" [max]="state?.duration" step="1"
                       [value]="state?.currentTime"
                       (input)="onSliderChangeEnd($event)"></mat-slider>
         </div>
-
-
         <div class="d-flex justify-content-center">
           <div class="media-action-bar bg-dark pb-3 text-center">
             <button mat-button (click)="play()" [disabled]="state?.error" *ngIf="!state?.playing">
@@ -107,20 +91,7 @@
 
           </div>
 
-          <p>test</p>
-          <p>test</p>
-          <p>test</p>
-          <p>test</p>
-          <p>test</p>
-          <p>test</p>
-          <p>test</p>
-          <p>test</p>
-          <p>test</p>
-          <p>test</p>
-          <p>test</p>
-          <p>test</p>
-          <p>test</p>
-          <p>test</p>
+          <div class="spacer"></div>
 
 
           <div class=" ">
@@ -138,6 +109,10 @@
 
 
           <div class="d-flex justify-content-center">
+            <button mat-button>
+              <i (click)="addToFavourits(currentFile)" class="text-primary bi bi-heart"></i>
+            </button>
+
             <button mat-button [disabled]="isFirstPlaying()" (click)="previous()">
               <mat-icon class="text-primary" mat-list-icon>skip_previous</mat-icon>
             </button>

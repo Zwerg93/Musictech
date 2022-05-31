@@ -8,13 +8,7 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./log-in.component.scss']
 })
 export class LogInComponent implements OnInit {
-  //password: String;
-
-
-  // username: String;
   private errors: any;
-  myStorage = localStorage;
-
 
   constructor(private http: HttpClient) {
   }
@@ -23,25 +17,21 @@ export class LogInComponent implements OnInit {
 
     if (sessionStorage.getItem('login') == null) {
       null;
-      console.log("not logged in")
+      //console.log("not logged in")
     } else {
       document.getElementById("register")!.innerHTML = sessionStorage.getItem('login')! + " Loged in as: " + sessionStorage.getItem('username');
-      console.log("succes")
+      //console.log("succes")
     }
 
   }
-
-
   username: string = '';
   password: string = '';
-
   clickme() {
-
     this.username = (<HTMLInputElement>document.getElementById("typeEmailXlogin")).value;
     this.password = (<HTMLInputElement>document.getElementById("typePasswordXlogin")).value;
-    console.log(this.username);
-    console.log(this.password);
 
+///api/user/autorize/
+    //http://localhost:8080
     this.http.post('/api/user/autorize/' + this.username + '/' + this.password, null).subscribe(
       result => {
       },
@@ -59,23 +49,9 @@ export class LogInComponent implements OnInit {
           "<p>Succes!</p>" +
           "    </div>\n" +
           "  </fieldset>"
-
         sessionStorage.setItem('login', 'true');
         sessionStorage.setItem('username', this.username);
-
       }
     );
-
-    //
-
-
-  }
-
-  register() {
-
-  }
-
-  login() {
-   console.log(this.username);
   }
 }

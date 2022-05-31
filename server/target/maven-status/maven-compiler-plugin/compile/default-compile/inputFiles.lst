@@ -1,3 +1,4 @@
+/home/marcel/musictech/server/src/main/java/at/ac/htl/leonding/api/YoutubeResource.java
 /home/marcel/musictech/server/src/main/java/at/ac/htl/leonding/workloads/song/SongRepo.java
 /home/marcel/musictech/server/src/main/java/at/ac/htl/leonding/workloads/playlist/PlaylistRepoImpl.java
 /home/marcel/musictech/server/src/main/java/at/ac/htl/leonding/workloads/playlist/PlaylistRepo.java

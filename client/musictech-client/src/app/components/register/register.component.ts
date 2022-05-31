@@ -10,6 +10,7 @@ var test: boolean;
 })
 export class RegisterComponent implements OnInit {
   private errors: any;
+  private user: any;
 
   constructor(private http: HttpClient) {
   }
@@ -27,10 +28,10 @@ export class RegisterComponent implements OnInit {
             test = false;
             event.preventDefault()
             event.stopPropagation()
-            console.log("nothing is valid :)")
+            //console.log("nothing is valid :)")
           } else {
             test = true;
-            console.log("everyting is valid :)")
+           // console.log("everyting is valid :)")
           }
 
           form.classList.add('was-validated')
@@ -56,7 +57,7 @@ export class RegisterComponent implements OnInit {
       this.password = (<HTMLInputElement>document.getElementById("validationPassword")).value;
       //this.name = (<HTMLInputElement>document.getElementById("validationCustom01")).value;
 
-      console.log("wuhu")
+      //console.log("wuhu")
       var data = {
         email: this.eMail,
         lastname: this.lastname,
@@ -64,7 +65,8 @@ export class RegisterComponent implements OnInit {
         password: this.password,
         username: this.username
       };
-
+      ///api/user
+      //http://localhost:8080
       this.http.post('/api/user', data).subscribe(
         result => {
         },
@@ -77,6 +79,23 @@ export class RegisterComponent implements OnInit {
             "  </fieldset>"
         },
         () => {
+
+          const data2 = {
+            id: 0,
+            name: 'fav',
+          };
+
+
+          ///api/user/getuser/
+          //http://localhost:8080/user/getuser/
+          this.http.get('/api/user/getuser/' + this.username).toPromise().then((response: any) => {
+            this.user = response;
+            //http://localhost:8080/user/add/
+            this.http.post('/api/user/add/' + this.user.id, data2).subscribe();
+            //console.log(this.user.id + "Userid");
+
+          })
+
           document.getElementById("showresult")!.innerHTML = "<fieldset>\n" +
             "    <div >\n" +
             "<p>Succes!</p>" +
@@ -88,6 +107,7 @@ export class RegisterComponent implements OnInit {
 
         });
     }
+
 
   }
 
