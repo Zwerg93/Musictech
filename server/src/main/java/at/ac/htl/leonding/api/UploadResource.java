@@ -26,7 +26,7 @@ public class UploadResource {
 
     //private final String UPLOADED_FILE_PATH = "/home/";
     //private final String UPLOADED_FILE_PATH = "C:\Schule\4BHITM\sew\musictech\files";
-    private final String UPLOADED_FILE_PATH = "~/files/";
+    private final String UPLOADED_FILE_PATH = "/home/marcel/files/";
 
     private String postURL = "";
 
@@ -91,7 +91,7 @@ public class UploadResource {
 
         File audioFile = new File(UPLOADED_FILE_PATH + fileName);
         if (!audioFile.exists()) {
-            throw new RuntimeException("File not found" + UPLOADED_FILE_PATH + fileName);
+            throw new RuntimeException("File not found: " + UPLOADED_FILE_PATH + fileName);
         }
         Response.ResponseBuilder res = Response.ok((Object) audioFile);
         res.header("Content-Disposition", "inline;filename=" + fileName);
