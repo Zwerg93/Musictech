@@ -26,7 +26,7 @@ public class UploadResource {
 
     //private final String UPLOADED_FILE_PATH = "/home/";
     //private final String UPLOADED_FILE_PATH = "C:\Schule\4BHITM\sew\musictech\files";
-    private final String UPLOADED_FILE_PATH = "/home/marcel/files/";
+    private final String UPLOADED_FILE_PATH = "./files/";
     private String postURL = "";
 
     @POST
