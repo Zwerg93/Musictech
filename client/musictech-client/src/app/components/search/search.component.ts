@@ -31,6 +31,7 @@ export class SearchComponent implements OnInit {
   myMethod() {
     //console.log(this.searchstring)
     if (this.searchstring != "") {
+      ///api/youtube/download/
       //http://localhost:8080/youtube/download/
       this.http.get('/api/youtube/download/' + this.searchstring).toPromise().then((response: any) => {
         this.itemList = response[0];

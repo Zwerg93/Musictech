@@ -29,7 +29,7 @@ export class UploadComponent implements OnInit {
 
     fd.append('uploadedFile', this.selectetFile, output);
   ///api/uploadFile/upload
-    //http://localhost:8080
+    //http://localhost:8080/uploadFile/upload
     this.http.post('/api/uploadFile/upload', fd).subscribe(
       result => {
       },

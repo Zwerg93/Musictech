@@ -27,9 +27,7 @@ public class UploadResource {
     //private final String UPLOADED_FILE_PATH = "/home/";
     //private final String UPLOADED_FILE_PATH = "C:\Schule\4BHITM\sew\musictech\files";
     private final String UPLOADED_FILE_PATH = "/home/marcel/files/";
-
     private String postURL = "";
-
 
     @POST
     @Path("/upload")
@@ -39,20 +37,15 @@ public class UploadResource {
 
         String fileName = "";
         String artist = "";
-
         Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
         List<InputPart> inputParts = uploadForm.get("uploadedFile");
-
 
         for (InputPart inputPart : inputParts) {
 
             try {
-
-
                 MultivaluedMap<String, String> header = inputPart.getHeaders();
                 fileName = getFileName(header);
                 artist = getArtist(header);
-
                 System.out.println(artist);
                 InputStream inputStream = inputPart.getBody(InputStream.class, null);
                 System.out.println(fileName);
@@ -60,19 +53,14 @@ public class UploadResource {
                 postURL = "/api/uploadFile/download/" + fileName;
                 //postURL = "http://localhost:8080/uploadFile/download/" + fileName;
                 System.out.println(postURL);
-
                 Song song = new Song(fileName, postURL);
-
                 repo.addSong(song);
                 //repo.persist(song);
-
                 //songService.addSong(fileName,artist,postURL);
-
-
                 byte[] bytes = IOUtils.toByteArray(inputStream);
                 fileName = UPLOADED_FILE_PATH + fileName;
+                System.out.println(fileName);
                 writeFile(bytes, fileName);
-
                 System.out.println("Done");
 
             } catch (IOException e) {
@@ -132,6 +120,7 @@ public class UploadResource {
 
         if (!file.exists()) {
             file.createNewFile();
+            System.out.println("succes");
         }
         FileOutputStream fop = new FileOutputStream(file);
         fop.write(content);
