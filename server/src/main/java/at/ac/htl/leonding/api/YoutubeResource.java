@@ -30,7 +30,7 @@ import java.util.ArrayList;
 public class YoutubeResource {
     private String postURL = "";
     private static final String DEVELOPER_KEY = "AIzaSyDDd_3IHYSGqMpzuybFRnirJrVeRIl4i5Y";
-    private static final String APPLICATION_NAME = "API code samples";
+    private static final String APPLICATION_NAME = "Musictech";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     @Inject
     SongRepo repo;
@@ -123,7 +123,7 @@ public class YoutubeResource {
         FileOutputStream fos = null;
         try {
             ///home/marcel/musictech/files/
-            fos = new FileOutputStream("./files/" + title + ".mp3"); // be carefull when Publish
+            fos = new FileOutputStream("~/files" + title + ".mp3"); // be carefull when Publish
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
