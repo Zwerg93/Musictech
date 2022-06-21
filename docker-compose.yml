@@ -18,25 +18,25 @@ services:
       - backend
          # ipv4_address:172.24.0.2
 
-  server:
-    build: server/
-    image: musictechserver
-    ports:
-      - 8080:8080
-    expose:
-      - 8080
-    volumes:
-      - pgadmindata:/var/lib/server
+  #server:
+    #build: server/
+    #image: musictechserver
+    #ports:
+    #  - 8080:8080
+    #expose:
+    #  - 8080
+    #volumes:
+    #  - pgadmindata:/var/lib/server
     #command: bash -c 'do sleep 1; done;'
-    depends_on:
-      - postgresdb
+    #depends_on:
+    #  - postgresdb
       
     #command: ["./wait-for-postgres.sh", "db", "python", "app.py"]
 
-    networks:
-      - backend
-      #ipv4_address:172.24.0.3
-      - frontend
+    #networks:
+    #  - backend
+    #  #ipv4_address:172.24.0.3
+    #  - frontend
 
 
   client:
