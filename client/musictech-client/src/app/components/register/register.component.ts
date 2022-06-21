@@ -67,7 +67,7 @@ export class RegisterComponent implements OnInit {
       };
       ///api/user
       //http://localhost:8080
-      this.http.post('/api/user', data).subscribe(
+      this.http.post('http://localhost:8080/user', data).subscribe(
         result => {
         },
         error => {
@@ -88,10 +88,10 @@ export class RegisterComponent implements OnInit {
 
           ///api/user/getuser/
           //http://localhost:8080/user/getuser/
-          this.http.get('/api/user/getuser/' + this.username).toPromise().then((response: any) => {
+          this.http.get('http://localhost:8080/user/getuser/' + this.username).toPromise().then((response: any) => {
             this.user = response;
             //http://localhost:8080/user/add/
-            this.http.post('/api/user/add/' + this.user.id, data2).subscribe();
+            this.http.post('http://localhost:8080/user/add/' + this.user.id, data2).subscribe();
             //console.log(this.user.id + "Userid");
 
           })

@@ -60,7 +60,7 @@ export class SearchComponent implements OnInit {
 
   download(number: any, title: String) {
 //http://localhost:8080/youtube/download/mp3/
-    this.http.get('/api/youtube/download/mp3/' + number + '/' + title + '').subscribe(
+    this.http.get('http://localhost:8080/youtube/download/mp3/' + number + '/' + title + '').subscribe(
       result => {
       },
       error => {

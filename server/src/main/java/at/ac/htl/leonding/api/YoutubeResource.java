@@ -123,18 +123,18 @@ public class YoutubeResource {
         FileOutputStream fos = null;
         try {
             ///home/marcel/musictech/files/
-            fos = new FileOutputStream("~/files" + title + ".mp3"); // be carefull when Publish
+            fos = new FileOutputStream("/home/marcel/musictech/files/" + title + ".mp3"); // be carefull when Publish
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         try {
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-            postURL = "/api/uploadFile/download/" + title + ".mp3";
-            // postURL = "http://localhost:8080/uploadFile/download/" + title + ".mp3";
+            //postURL = "/api/uploadFile/download/" + title + ".mp3";
+            postURL = "http://localhost:8080/uploadFile/download/" + title + ".mp3";
             System.out.println(postURL);
             Song song = new Song(title, postURL);
             repo.addSong(song);
-            System.out.println(song);
+           // System.out.println(song);
             System.out.println("Donwload succes " + title);
         } catch (IOException e) {
             e.printStackTrace();

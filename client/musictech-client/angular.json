@@ -119,5 +119,7 @@
       }
     }
   },
-  "defaultProject": "musictech-client"
+  "cli": {
+    "analytics": false
+  }
 }
