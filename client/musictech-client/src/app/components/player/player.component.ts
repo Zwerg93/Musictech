@@ -196,7 +196,7 @@ export class PlayerComponent {
     if (sessionStorage.getItem('username') != null) {
 // /api/user/getPlalist/
       //http://localhost:8080/
-      this.http.get('http://localhost:8080/user/getPlalist/' + sessionStorage.getItem('username')).toPromise().then((response: any) => {
+      this.http.get('/api/user/getPlalist/' + sessionStorage.getItem('username')).toPromise().then((response: any) => {
         this.itemList = response;
         //console.table(this.itemList + "testasd");
         //  this.files = this.itemList[0].songList;
@@ -228,7 +228,7 @@ export class PlayerComponent {
       //console.log(sessionStorage.getItem('username'))
       // /api/user/getuser/
 
-      this.http.get('http://localhost:8080/user/getuser/' + sessionStorage.getItem('username')).toPromise().then((response: any) => {
+      this.http.get('/api/user/getuser/' + sessionStorage.getItem('username')).toPromise().then((response: any) => {
         this.user = response;
         this.asyncaddTofav(currentFile);
         //console.log(this.user.playlistList[0].id + " Playlistid");
@@ -242,7 +242,7 @@ export class PlayerComponent {
   asyncaddTofav(currentFile: any) {
     /// api/user/add/
     //http://localhost:8080
-    this.http.post('http://localhost:8080/user/add/' + this.user.playlistList[0].id + '/' + currentFile.file.id + '', null).subscribe(
+    this.http.post('/api/user/add/' + this.user.playlistList[0].id + '/' + currentFile.file.id + '', null).subscribe(
       result => {
       },
       error => {
