@@ -8,7 +8,7 @@ First release! I dockerised everything, and you can execute everything with "doc
 
 # about
 
-i createt this project because i hatet all existing streaming apps. All of them were ugly, expensive or flooded with advertising. So i startet to develop 
+i created this project because i hatet all existing streaming apps. All of them were ugly, expensive or flooded with advertising. So i startet to develop 
 this project for school, and startet do like the things I createt. So i started working on the app privately and add more and more features. In the end I want to have an application i actually want to use. 
 
 # todo
